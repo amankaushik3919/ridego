@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { authApi } from "@/lib/api/auth";
 import { useAuthStore } from "@/lib/store/auth-store";
@@ -21,6 +21,18 @@ type Step = "PHONE" | "OTP";
 export default function LoginPage() {
   const router = useRouter();
   const setAuth = useAuthStore((s) => s.setAuth);
+  const hydrate = useAuthStore((s) => s.hydrate);
+  const user = useAuthStore((s) => s.user);
+
+  useEffect(() => {
+    hydrate();
+  }, [hydrate]);
+
+  useEffect(() => {
+    if (user) {
+      router.replace("/dashboard");
+    }
+  }, [user, router]);
 
   const [step, setStep] = useState<Step>("PHONE");
   const [phone, setPhone] = useState("");
@@ -49,7 +61,7 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
-      await authApi.requestOtp(`+91${phone}`);
+      await authApi.requestOtp(phone);
       toast.success("OTP sent successfully!");
       setStep("OTP");
       startResendTimer();
@@ -68,12 +80,10 @@ export default function LoginPage() {
 
     setLoading(true);
     try {
-      const { data } = await authApi.verifyOtp(`+91${phone}`, otp);
+      const { data } = await authApi.verifyOtp(phone, otp);
+      // handleVerifyOtp ke andar
       setAuth(data.user, data.accessToken, data.refreshToken);
-
       toast.success(data.isNewUser ? "Account created!" : "Welcome back!");
-
-      // Role ke hisaab se redirect — Module 4 mein logic refine karenge
       router.push("/dashboard");
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Invalid OTP.");
@@ -95,7 +105,7 @@ export default function LoginPage() {
           <CardDescription>
             {step === "PHONE"
               ? "Enter your phone number to continue"
-              : `OTP sent to +91 ${phone}`}
+              : `OTP sent to ${phone}`}
           </CardDescription>
         </CardHeader>
 
