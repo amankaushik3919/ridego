@@ -77,10 +77,11 @@ export function ConfirmSeatDialog({
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
-          <Button variant="outline" onClick={onClose}>
+          {/* <Button variant="outline" onClick={onClose}>
             Cancel
-          </Button>
+          </Button> */}
           <Button
+            className="h-13.5"
             onClick={handleConfirm}
             disabled={loading || verified.availableSeats <= 0}
           >

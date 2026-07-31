@@ -43,9 +43,12 @@ export interface ActiveSession {
 export interface NearbySession {
   sessionId: string;
   destination: string;
-  distanceKm: number;
+  routeDistanceKm: number;
+  distanceM: number;
+  direction: string;
   totalSeats: number;
   availableSeats: number;
+  vehicleNumber: string;
 }
 
 export interface DriverDestination {

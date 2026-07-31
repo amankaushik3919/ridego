@@ -2,8 +2,8 @@
 "use client";
 
 import { useAuthStore } from "@/lib/store/auth-store";
-import { Navbar } from "@/components/shared/navbar";
 import { BottomNav } from "@/components/shared/bottom-nav";
+import { RiderBottomNav } from "@/components/shared/rider-bottom-nav";
 import { AuthGuard } from "@/components/shared/auth-guard";
 
 export default function DashboardLayout({
@@ -24,9 +24,11 @@ export default function DashboardLayout({
           <BottomNav />
         </div>
       ) : (
-        <div className="min-h-screen bg-muted/20">
-          <Navbar />
-          <main className="mx-auto max-w-2xl px-4 py-6">{children}</main>
+        <div className="relative min-h-dvh bg-background text-on-surface">
+          <div className="mx-auto w-full max-w-md px-5 pb-32 pt-6">
+            {children}
+          </div>
+          <RiderBottomNav />
         </div>
       )}
     </AuthGuard>

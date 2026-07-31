@@ -50,7 +50,7 @@ export function QrScanner({ open, onClose, onScan }: Props) {
       scanner
         .start(
           { facingMode: "environment" },
-          { fps: 10, qrbox: { width: 250, height: 250 } },
+          { fps: 10, qrbox: { width: 300, height: 300 } },
           async (decodedText) => {
             if (hasScannedRef.current) return; // duplicate frame guard
             hasScannedRef.current = true;
@@ -87,11 +87,13 @@ export function QrScanner({ open, onClose, onScan }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Scan Rickshaw QR</DialogTitle>
+      <DialogContent className="rounded-[24px] p-0 sm:max-w-lg">
+        <DialogHeader className="px-5 pt-5">
+          <DialogTitle className="font-title-lg text-title-lg text-on-surface">
+            Scan Rickshaw QR
+          </DialogTitle>
         </DialogHeader>
-        <div id={CONTAINER_ID} className="w-full" />
+        <div id={CONTAINER_ID} className="w-full px-4 pb-5" />
       </DialogContent>
     </Dialog>
   );

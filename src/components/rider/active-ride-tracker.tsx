@@ -128,7 +128,9 @@ export function ActiveRideTracker({
                 className={`size-3 ${driverLoc ? "animate-pulse" : ""}`}
               />
               {liveDistanceText ??
-                (driverLoc ? "Live location on" : "Waiting for driver location")}
+                (driverLoc
+                  ? "Live location on"
+                  : "Waiting for driver location")}
             </Badge>
           </div>
 
@@ -160,10 +162,9 @@ export function ActiveRideTracker({
           )}
 
           <p className="text-sm text-muted-foreground">
-            Destination pahunchne par driver ka QR dobara scan karein ride
-            khatam karne ke liye.
+            Scan QR Code to reach your destination.
           </p>
-          <Button className="w-full" onClick={() => setScannerOpen(true)}>
+          <Button className="w-full h-12" onClick={() => setScannerOpen(true)}>
             Scan QR to End Ride
           </Button>
         </CardContent>

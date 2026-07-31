@@ -268,20 +268,34 @@ export function DriverRides() {
         </p>
       </section>
 
-      <button
+      <div
+        role="button"
+        tabIndex={0}
+        aria-disabled={ending || started}
         onClick={() => {
+          if (ending || started) return;
           if (isOn) {
             handleGoOffline();
           } else {
             handleToggle(true);
           }
         }}
-        disabled={ending}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            if (ending || started) return;
+            if (isOn) {
+              handleGoOffline();
+            } else {
+              handleToggle(true);
+            }
+          }
+        }}
         className={cn(
           "flex w-full items-center justify-between rounded-[20px] border-2 p-4 text-left transition-all active:scale-[0.99]",
           isOn
             ? "border-secondary bg-secondary-container/30 shadow-[0_8px_20px_-4px_rgba(0,108,73,0.35)]"
             : "border-outline-variant bg-surface-container-lowest shadow-sm",
+          (ending || started) && "pointer-events-none opacity-60",
         )}
       >
         <div>
@@ -300,15 +314,20 @@ export function DriverRides() {
                 isOn ? "bg-secondary" : "bg-outline",
               )}
             />
-            {isOn ? "Currently online" : "Currently offline"}
+            {started
+              ? "Ride in progress"
+              : isOn
+                ? "Currently online"
+                : "Currently offline"}
           </p>
         </div>
         <Switch
           checked={isOn}
           onCheckedChange={handleToggle}
+          disabled={started}
           className="pointer-events-none data-[state=checked]:bg-secondary"
         />
-      </button>
+      </div>
 
       {isOn && !session && (
         <section className="space-y-4 rounded-[20px] border border-outline-variant/30 bg-surface-container-lowest p-4 shadow-sm">

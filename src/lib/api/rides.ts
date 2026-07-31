@@ -27,9 +27,13 @@ export const ridesApi = {
 
   getMyActiveSession: () => apiClient.get("/rides/my-active-session"),
 
+  getRiderActiveSession: () => apiClient.get("/rides/rider-active-session"),
+
   getDriverStats: () => apiClient.get("/rides/stats"),
 
   getRideHistory: () => apiClient.get("/rides/history"),
+
+  getRiderRideHistory: () => apiClient.get("/rides/rider-history"),
 
   regenerateQr: () => apiClient.post("/rides/regenerate-qr"),
 };
