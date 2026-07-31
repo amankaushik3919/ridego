@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/auth-store";
 import { usersApi } from "@/lib/api/users";
-import { DriverDashboard } from "@/components/driver/driver-dashboard";
+import { DriverHome } from "@/components/driver/driver-home";
 import { RiderDashboard } from "@/components/rider/rider-dashboard";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -38,7 +38,7 @@ export default function DashboardPage() {
   if (!user || checkingVehicle) return <Skeleton className="h-64 w-full" />;
 
   if (user.role === "DRIVER" || user.role === "BOTH") {
-    return <DriverDashboard />;
+    return <DriverHome />;
   }
 
   return <RiderDashboard />;
