@@ -251,7 +251,7 @@ export function DriverRides() {
           <Skeleton className="h-9 w-32" />
           <Skeleton className="mt-2 h-5 w-56" />
         </section>
-        <Skeleton className="h-[84px] w-full rounded-[20px]" />
+        <Skeleton className="h-21 w-full rounded-[20px]" />
         <Skeleton className="h-48 w-full rounded-[20px]" />
       </div>
     );
@@ -379,7 +379,8 @@ export function DriverRides() {
       )}
 
       {destPickerOpen && (
-        <div className="fixed inset-0 z-[100] flex flex-col bg-background">
+        // TODO: Error if any to change z-[100]
+        <div className="fixed inset-0 z-100 flex flex-col bg-background">
           <header className="flex h-16 items-center justify-between px-5">
             <span className="font-title-md text-title-md font-semibold text-on-surface">
               Select Destination
@@ -485,7 +486,7 @@ export function DriverRides() {
             <Button
               onClick={() => setDestPickerOpen(false)}
               disabled={!selectedId}
-              className="h-[54px] w-full rounded-xl bg-primary text-white font-title-md text-body-lg font-semibold shadow-lg shadow-primary/25 transition-all active:scale-[0.98]"
+              className="h-13.5 w-full rounded-xl bg-primary text-white font-title-md text-body-lg font-semibold shadow-lg shadow-primary/25 transition-all active:scale-[0.98]"
             >
               {selectedId ? (
                 <span className="text-white">Done</span>

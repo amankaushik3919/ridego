@@ -194,7 +194,7 @@ export function DriverProfile() {
           <Skeleton className="mt-4 h-8 w-36" />
           <Skeleton className="mt-2 h-5 w-32" />
         </section>
-        <Skeleton className="h-[76px] w-full rounded-[20px]" />
+        <Skeleton className="h-19 w-full rounded-[20px]" />
         <section className="grid grid-cols-2 gap-4">
           <Skeleton className="h-28 rounded-xl" />
           <Skeleton className="h-28 rounded-xl" />
@@ -332,7 +332,7 @@ export function DriverProfile() {
         disabled={logoutLoading}
         variant="destructive"
         className={cn(
-          "h-[54px] w-full rounded-xl font-title-md text-body-lg font-semibold",
+          "h-13.5 w-full rounded-xl font-title-md text-body-lg font-semibold",
           logoutLoading && "opacity-70",
         )}
       >
@@ -516,7 +516,7 @@ export function DriverProfile() {
             <Button
               onClick={handleSaveName}
               disabled={nameLoading}
-              className="h-12 flex-1 rounded-xl bg-primary text-white font-title-md text-body-lg font-semibold py-3 text-white"
+              className="h-12 flex-1 rounded-xl bg-primary text-white font-title-md text-body-lg font-semibold py-3"
             >
               {nameLoading ? (
                 <span className="size-5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
@@ -574,7 +574,7 @@ export function DriverProfile() {
             <Button
               onClick={handleSaveFare}
               disabled={fareLoading}
-              className="h-12 flex-1 rounded-xl bg-primary text-white font-title-md text-body-lg font-semibold py-3 text-white"
+              className="h-12 flex-1 rounded-xl bg-primary text-white font-title-md text-body-lg font-semibold py-3 "
             >
               {fareLoading ? (
                 <span className="size-5 animate-spin rounded-full border-2 border-white/40 border-t-white" />

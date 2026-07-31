@@ -154,7 +154,7 @@ function DriverHomeSkeleton() {
         <Skeleton className="mt-2 h-5 w-64" />
       </section>
 
-      <Skeleton className="h-[76px] w-full rounded-[20px]" />
+      <Skeleton className="h-19 w-full rounded-[20px]" />
 
       <section className="grid grid-cols-2 gap-4">
         <Skeleton className="h-32 rounded-xl" />

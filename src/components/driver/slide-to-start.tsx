@@ -31,8 +31,7 @@ export function SlideToStart({
 
   const measure = () => {
     const track = trackRef.current;
-    if (track)
-      setMaxOffset(track.clientWidth - THUMB_SIZE - EDGE_GAP);
+    if (track) setMaxOffset(track.clientWidth - THUMB_SIZE - EDGE_GAP);
   };
 
   const startDrag = (clientX: number) => {
@@ -94,8 +93,9 @@ export function SlideToStart({
         }
       }}
       className={cn(
+        // TODO: Error if any to change [touch-action:none]
         "relative flex h-14 w-full select-none items-center overflow-hidden rounded-full transition-colors",
-        "[touch-action:none]",
+        "[touch-none]",
         variant === "destructive"
           ? loading
             ? "bg-error/80 shadow-none"
