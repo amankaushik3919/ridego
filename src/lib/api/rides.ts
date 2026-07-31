@@ -6,6 +6,8 @@ export const ridesApi = {
 
   goOffline: () => apiClient.post("/rides/offline"),
 
+  startRide: () => apiClient.post("/rides/start"),
+
   getNearby: (lat: number, lng: number, radiusKm = 2) =>
     apiClient.get("/rides/nearby", { params: { lat, lng, radiusKm } }),
 

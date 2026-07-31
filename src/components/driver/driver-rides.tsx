@@ -11,15 +11,9 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import {
-  Loader2,
-  QrCode,
-  MapPin,
-  ChevronDown,
-  X,
-  Navigation,
-} from "lucide-react";
+import { Loader2, QrCode, MapPin, ChevronDown, X, Navigation } from "lucide-react";
 import { getErrorMessage, cn } from "@/lib/utils";
+import { SlideToStart } from "./slide-to-start";
 import { toast } from "sonner";
 
 export function DriverRides() {
@@ -32,6 +26,8 @@ export function DriverRides() {
   const [session, setSession] = useState<ActiveSession | null>(null);
   const [qrImageDataUrl, setQrImageDataUrl] = useState<string | null>(null);
   const [availableSeats, setAvailableSeats] = useState(0);
+  const [started, setStarted] = useState(false);
+  const [starting, setStarting] = useState(false);
   const [ending, setEnding] = useState(false);
   const [qrLoading, setQrLoading] = useState(false);
 
@@ -46,6 +42,7 @@ export function DriverRides() {
         if (sessionData.active) {
           setSession(sessionData);
           setAvailableSeats(sessionData.availableSeats);
+          setStarted(sessionData.status === "STARTED");
           setIsOn(true);
         }
       } catch {
@@ -129,11 +126,28 @@ export function DriverRides() {
       setSession(data);
       setAvailableSeats(data.availableSeats);
       setQrImageDataUrl(data.qrImageDataUrl);
+      setStarted(false);
     } catch (err) {
       toast.error(getErrorMessage(err, "Failed to go online."));
       setIsOn(false);
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleStartRide = async () => {
+    setStarting(true);
+    try {
+      const { data } = await ridesApi.startRide();
+      toast.success("Ride started! Riders can now board.");
+      setStarted(true);
+      if (data.availableSeats !== undefined) {
+        setAvailableSeats(data.availableSeats);
+      }
+    } catch (err) {
+      toast.error(getErrorMessage(err, "Failed to start ride."));
+    } finally {
+      setStarting(false);
     }
   };
 
@@ -144,11 +158,16 @@ export function DriverRides() {
     }
     setEnding(true);
     try {
-      await ridesApi.goOffline();
-      toast.success("Ride completed and saved.");
+      const { data } = await ridesApi.goOffline();
+      if (data.rideRecorded) {
+        toast.success("Ride completed and saved!");
+      } else {
+        toast.info("You went offline. Ride was not counted.");
+      }
       setSession(null);
       setQrImageDataUrl(null);
       setIsOn(false);
+      setStarted(false);
     } catch (err) {
       toast.error(getErrorMessage(err, "Failed to end session."));
     } finally {
@@ -383,7 +402,7 @@ export function DriverRides() {
                 </p>
               </div>
               <Badge className="bg-secondary-container text-on-secondary-container hover:bg-secondary-container">
-                Online
+                {started ? "Ride Started" : "Online"}
               </Badge>
             </div>
 
@@ -424,23 +443,37 @@ export function DriverRides() {
             </Badge>
           </div>
 
-          <Separator />
+          {!started && (
+            <div className="space-y-2">
+              <SlideToStart
+                onStart={handleStartRide}
+                disabled={ending}
+                loading={starting}
+              />
+              <p className="font-body-md px-2 text-center text-body-md text-on-surface-variant">
+                Slide to start the ride. Ride will be counted only after you
+                start it.
+              </p>
+            </div>
+          )}
 
-          <Button
-            variant="destructive"
-            onClick={handleGoOffline}
-            disabled={ending}
-            className="h-[54px] w-full rounded-xl font-title-md text-body-lg font-semibold"
-          >
-            {ending ? (
-              <>
-                <Loader2 className="size-5 animate-spin" />
-                Ending...
-              </>
-            ) : (
-              "End Ride"
-            )}
-          </Button>
+          {started && (
+            <>
+              <Separator />
+              <SlideToStart
+                onStart={handleGoOffline}
+                disabled={ending}
+                loading={ending}
+                label="Slide to End Ride"
+                loadingLabel="Ending ride..."
+                variant="destructive"
+              />
+              <p className="font-body-md px-2 text-center text-body-md text-on-surface-variant">
+                Slide to end the ride. It will be counted only if riders
+                boarded.
+              </p>
+            </>
+          )}
         </section>
       )}
     </div>

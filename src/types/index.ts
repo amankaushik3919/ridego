@@ -36,6 +36,7 @@ export interface ActiveSession {
   distanceKm?: number;
   totalSeats?: number;
   availableSeats?: number;
+  status?: "ACTIVE" | "STARTED";
   riders?: { riderId: string; status: "BOARDED" | "COMPLETED" }[];
 }
 
