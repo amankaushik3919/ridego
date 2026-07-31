@@ -23,4 +23,6 @@ export const ridesApi = {
 
   endRideByDriver: (sessionId: string, riderId: string) =>
     apiClient.post(`/rides/${sessionId}/riders/${riderId}/end`),
+
+  getMyActiveSession: () => apiClient.get("/rides/my-active-session"),
 };

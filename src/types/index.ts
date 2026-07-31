@@ -28,3 +28,13 @@ export type SeatLockResult =
   | "ALREADY_CLOSED"
   | "SESSION_CLOSED"
   | "SESSION_NOT_FOUND";
+
+export interface ActiveSession {
+  active: boolean;
+  sessionId?: string;
+  destination?: string;
+  distanceKm?: number;
+  totalSeats?: number;
+  availableSeats?: number;
+  riders?: { riderId: string; status: "BOARDED" | "COMPLETED" }[];
+}
