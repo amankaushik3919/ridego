@@ -18,7 +18,7 @@ interface Props {
   onOnline: (session: any, qrImageDataUrl: string) => void;
 }
 
-export function GoOnlineForm({ onOnline }: { onOnline: () => void }) {
+export function GoOnlineForm({ onOnline }: Props) {
   const [destination, setDestination] = useState("");
   const [distanceKm, setDistanceKm] = useState("");
   const [loading, setLoading] = useState(false);

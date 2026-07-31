@@ -1,12 +1,8 @@
 import { apiClient } from "./client";
 
 export const ridesApi = {
-  goOnline: (data: {
-    destination: string;
-    distanceKm: number;
-    lat: number;
-    lng: number;
-  }) => apiClient.post("/rides/online", data),
+  goOnline: (data: { destinationId: string; lat: number; lng: number }) =>
+    apiClient.post("/rides/online", data),
 
   goOffline: () => apiClient.post("/rides/offline"),
 
@@ -25,4 +21,6 @@ export const ridesApi = {
     apiClient.post(`/rides/${sessionId}/riders/${riderId}/end`),
 
   getMyActiveSession: () => apiClient.get("/rides/my-active-session"),
+
+  regenerateQr: () => apiClient.post("/rides/regenerate-qr"),
 };

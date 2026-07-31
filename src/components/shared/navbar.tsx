@@ -2,7 +2,6 @@
 
 import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/auth-store";
-import { ModeSwitcher } from "./mode-switcher";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -11,6 +10,7 @@ import {
   DropdownMenuTrigger,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import { Button } from "../ui/button";
 
 export function Navbar() {
   const router = useRouter();
@@ -28,34 +28,35 @@ export function Navbar() {
     <header className="flex items-center justify-between border-b px-6 py-3">
       <span className="text-lg font-semibold">RideConnect</span>
 
-      <div className="flex items-center gap-4">
-        <ModeSwitcher />
-
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <button>
-              <Avatar>
-                <AvatarFallback>{initials}</AvatarFallback>
-              </Avatar>
-            </button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <div className="px-2 py-1.5 text-sm text-muted-foreground">
-              +91 {user?.phone?.replace("+91", "")}
-            </div>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={() => router.push("/dashboard/profile")}>
-              Profile
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={handleLogout}
-              className="text-destructive"
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <button>
+            <Avatar>
+              <AvatarFallback>{initials}</AvatarFallback>
+            </Avatar>
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <div className="px-2 py-1.5 text-sm text-muted-foreground">
+            +91 {user?.phone?.replace("+91", "")}
+          </div>
+          <div className="px-2 pb-1.5 text-xs text-muted-foreground">
+            Role: {user?.role}
+          </div>
+          <div className="px-2 pb-1.5 text-xs text-muted-foreground">
+            <Button
+              variant="secondary"
+              onClick={() => router.push("/dashboard/profile")}
             >
-              Logout
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
+              Profile
+            </Button>
+          </div>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={handleLogout} className="text-destructive">
+            Logout
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </header>
   );
 }

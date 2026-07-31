@@ -1,26 +1,45 @@
 // src/app/dashboard/page.tsx
 "use client";
 
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import { useAuthStore } from "@/lib/store/auth-store";
-import { useUiStore } from "@/lib/store/ui-store";
-import { BecomeDriverPrompt } from "@/components/driver/become-driver-prompt";
+import { usersApi } from "@/lib/api/users";
 import { DriverDashboard } from "@/components/driver/driver-dashboard";
-import { RiderDashboardPlaceholder } from "@/components/rider/rider-dashboard-placeholder";
+import { RiderDashboard } from "@/components/rider/rider-dashboard";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function DashboardPage() {
+  const router = useRouter();
   const user = useAuthStore((s) => s.user);
-  const activeMode = useUiStore((s) => s.activeMode);
-  console.log({ activeMode, user });
+  const [checkingVehicle, setCheckingVehicle] = useState(false);
 
-  if (!user) return null;
+  useEffect(() => {
+    if (!user) return;
 
-  if (activeMode === "DRIVER" && user.role === "RIDER") {
-    return <BecomeDriverPrompt />;
-  }
+    // Naya user jiska role abhi bhi null hai (edge-case, refresh ke beech mein) — onboarding bhej do
+    if (user.role === null) {
+      router.replace("/onboarding");
+      return;
+    }
 
-  if (activeMode === "DRIVER") {
+    if (user.role === "DRIVER" || user.role === "BOTH") {
+      setCheckingVehicle(true);
+      usersApi
+        .getDriverProfile()
+        .catch(() => {
+          // Vehicle register nahi hai abhi — register-vehicle pe bhej do
+          router.replace("/dashboard/register-vehicle");
+        })
+        .finally(() => setCheckingVehicle(false));
+    }
+  }, [user, router]);
+
+  if (!user || checkingVehicle) return <Skeleton className="h-64 w-full" />;
+
+  if (user.role === "DRIVER" || user.role === "BOTH") {
     return <DriverDashboard />;
   }
 
-  return <RiderDashboardPlaceholder />;
+  return <RiderDashboard />;
 }

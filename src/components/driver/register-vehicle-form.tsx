@@ -1,9 +1,9 @@
+// src/components/driver/register-vehicle-form.tsx
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { usersApi } from "@/lib/api/users";
-import { useAuthStore } from "@/lib/store/auth-store";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -16,18 +16,16 @@ import {
 } from "@/components/ui/card";
 import { toast } from "sonner";
 
-export function BecomeDriverForm() {
+export function RegisterVehicleForm() {
   const router = useRouter();
-  const updateUser = useAuthStore((s) => s.updateUser);
-  const user = useAuthStore((s) => s.user);
 
-  const [rickshawNumber, setRickshawNumber] = useState("");
+  const [vehicleNumber, setVehicleNumber] = useState("");
   const [vehicleModel, setVehicleModel] = useState("");
   const [totalSeats, setTotalSeats] = useState("4");
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
-    if (!rickshawNumber || !totalSeats) {
+    if (!vehicleNumber || !totalSeats) {
       toast.error("Rickshaw number aur seat count zaroori hai.");
       return;
     }
@@ -35,20 +33,15 @@ export function BecomeDriverForm() {
     setLoading(true);
     try {
       await usersApi.becomeDriver({
-        rickshawNumber,
+        vehicleNumber,
         vehicleModel: vehicleModel || undefined,
         totalSeats: Number(totalSeats),
       });
 
-      if (user) updateUser({ ...user, role: "BOTH" });
-
-      toast.success("Driver profile created!");
+      toast.success("Vehicle registered!");
       router.push("/dashboard");
-      router.refresh();
     } catch (err: any) {
-      toast.error(
-        err.response?.data?.message || "Failed to create driver profile.",
-      );
+      toast.error(err.response?.data?.message || "Failed to register vehicle.");
     } finally {
       setLoading(false);
     }
@@ -57,19 +50,20 @@ export function BecomeDriverForm() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Become a Driver</CardTitle>
-        <CardDescription>Apni rickshaw ki details daalein.</CardDescription>
+        <CardTitle>Register Your Vehicle</CardTitle>
+        <CardDescription>
+          Apni rickshaw ki details daalein — isके baad Go Online kar payenge.
+        </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <Label>Rickshaw Number</Label>
           <Input
             placeholder="UP16-1234"
-            value={rickshawNumber}
-            onChange={(e) => setRickshawNumber(e.target.value)}
+            value={vehicleNumber}
+            onChange={(e) => setVehicleNumber(e.target.value)}
           />
         </div>
-
         <div className="space-y-2">
           <Label>Vehicle Model (optional)</Label>
           <Input
@@ -78,7 +72,6 @@ export function BecomeDriverForm() {
             onChange={(e) => setVehicleModel(e.target.value)}
           />
         </div>
-
         <div className="space-y-2">
           <Label>Total Seats</Label>
           <Input
@@ -89,9 +82,8 @@ export function BecomeDriverForm() {
             onChange={(e) => setTotalSeats(e.target.value)}
           />
         </div>
-
         <Button className="w-full" onClick={handleSubmit} disabled={loading}>
-          {loading ? "Saving..." : "Save & Continue"}
+          {loading ? "Saving..." : "Register & Continue"}
         </Button>
       </CardContent>
     </Card>

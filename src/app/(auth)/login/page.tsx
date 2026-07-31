@@ -81,10 +81,12 @@ export default function LoginPage() {
     setLoading(true);
     try {
       const { data } = await authApi.verifyOtp(phone, otp);
-      // handleVerifyOtp ke andar
       setAuth(data.user, data.accessToken, data.refreshToken);
+
       toast.success(data.isNewUser ? "Account created!" : "Welcome back!");
-      router.push("/dashboard");
+
+      // router.push(data.user.role === null ? "/dashboard" : "/dashboard");
+      router.push(data.user.role === null ? "/onboarding" : "/dashboard");
     } catch (err: any) {
       toast.error(err.response?.data?.message || "Invalid OTP.");
     } finally {

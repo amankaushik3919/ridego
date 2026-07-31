@@ -2,7 +2,7 @@ export interface User {
   id: string;
   phone: string;
   name: string | null;
-  role: "RIDER" | "DRIVER" | "BOTH";
+  role: "RIDER" | "DRIVER" | "BOTH" | null;
 }
 
 export interface DriverProfile {
@@ -37,4 +37,18 @@ export interface ActiveSession {
   totalSeats?: number;
   availableSeats?: number;
   riders?: { riderId: string; status: "BOARDED" | "COMPLETED" }[];
+}
+
+export interface NearbySession {
+  sessionId: string;
+  destination: string;
+  distanceKm: number;
+  totalSeats: number;
+  availableSeats: number;
+}
+
+export interface DriverDestination {
+  id: string;
+  label: string;
+  distanceKm: number;
 }

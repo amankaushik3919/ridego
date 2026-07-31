@@ -17,22 +17,41 @@ export function useRideSocket({
   onSeatUpdate,
   onSessionEnded,
 }: UseRideSocketOptions) {
-  const joinedSessionRef = useRef<string | null>(null);
-
   useEffect(() => {
     if (!sessionId) return;
 
     const socket = getSocket();
-    if (!socket.connected) socket.connect();
 
-    socket.emit("joinSession", { sessionId });
-    joinedSessionRef.current = sessionId;
+    const doJoin = () => {
+      console.log("[socket] joining session:", sessionId);
+      socket.emit("joinSession", { sessionId });
+    };
 
-    const handleSeatUpdate = (data: any) => onSeatUpdate?.(data);
-    const handleSessionEnded = (data: any) => onSessionEnded?.(data);
+    if (socket.connected) {
+      doJoin();
+    } else {
+      socket.connect();
+      socket.once("connect", () => {
+        console.log("[socket] connected:", socket.id);
+        doJoin();
+      });
+    }
+
+    const handleSeatUpdate = (data: any) => {
+      console.log("[socket] seatUpdate received:", data);
+      if (data.sessionId === sessionId) onSeatUpdate?.(data);
+    };
+
+    const handleSessionEnded = (data: any) => {
+      console.log("[socket] sessionEnded received:", data);
+      if (data.sessionId === sessionId) onSessionEnded?.(data);
+    };
 
     socket.on("seatUpdate", handleSeatUpdate);
     socket.on("sessionEnded", handleSessionEnded);
+    socket.on("connect_error", (err) =>
+      console.error("[socket] connect_error:", err.message),
+    );
 
     return () => {
       socket.emit("leaveSession", { sessionId });

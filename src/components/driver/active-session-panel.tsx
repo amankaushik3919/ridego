@@ -1,3 +1,4 @@
+// src/components/driver/active-session-panel.tsx
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
@@ -18,7 +19,7 @@ import { toast } from "sonner";
 
 interface Props {
   session: ActiveSession;
-  qrImageDataUrl: string;
+  qrImageDataUrl: string | null;
   onEnded: () => void;
 }
 
@@ -32,12 +33,23 @@ export function ActiveSessionPanel({
   );
   const [riders, setRiders] = useState(session.riders ?? []);
   const [ending, setEnding] = useState(false);
+  const [localQr, setLocalQr] = useState<string | null>(qrImageDataUrl);
+  const [qrLoading, setQrLoading] = useState(false);
+
+  // Parent se naya qrImageDataUrl aaye (jaise go-online se seedha) to sync karo
+  useEffect(() => {
+    if (qrImageDataUrl) setLocalQr(qrImageDataUrl);
+  }, [qrImageDataUrl]);
 
   const refreshSession = useCallback(async () => {
-    const { data } = await ridesApi.getMyActiveSession();
-    if (data.active) {
-      setAvailableSeats(data.availableSeats);
-      setRiders(data.riders);
+    try {
+      const { data } = await ridesApi.getMyActiveSession();
+      if (data.active) {
+        setAvailableSeats(data.availableSeats);
+        setRiders(data.riders);
+      }
+    } catch (err) {
+      console.error("Failed to refresh session:", err);
     }
   }, []);
 
@@ -45,7 +57,8 @@ export function ActiveSessionPanel({
     sessionId: session.sessionId ?? null,
     onSeatUpdate: (data) => {
       setAvailableSeats(data.availableSeats);
-      refreshSession(); // riders list bhi refresh ho jaaye
+      toast.info(`New rider boarded! ${data.availableSeats} seats left.`);
+      refreshSession();
     },
     onSessionEnded: () => {
       toast.info("Ride session ended.");
@@ -53,7 +66,6 @@ export function ActiveSessionPanel({
     },
   });
 
-  // Fallback polling — WebSocket miss ho jaaye to bhi 10 sec mein sync ho jaaye
   useEffect(() => {
     const interval = setInterval(refreshSession, 10000);
     return () => clearInterval(interval);
@@ -83,6 +95,20 @@ export function ActiveSessionPanel({
     }
   };
 
+  const handleRegenerateQr = async () => {
+    setQrLoading(true);
+    try {
+      const { data } = await ridesApi.regenerateQr();
+      console.log("regenerate-qr response:", data); // temporary debug
+      setLocalQr(data.qrImageDataUrl);
+    } catch (err: any) {
+      console.error("regenerate-qr error:", err.response?.data || err.message); // temporary debug
+      toast.error(err.response?.data?.message || "Failed to regenerate QR.");
+    } finally {
+      setQrLoading(false);
+    }
+  };
+
   const boardedRiders = riders.filter((r) => r.status === "BOARDED");
 
   return (
@@ -93,9 +119,29 @@ export function ActiveSessionPanel({
           <CardDescription>{session.distanceKm} km away</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col items-center gap-4">
-          <img src={qrImageDataUrl} alt="Ride QR" className="h-48 w-48" />
-          <Badge variant="secondary">
-            {availableSeats} / {session.totalSeats} seats available
+          {localQr ? (
+            <img src={localQr} alt="Ride QR" className="h-48 w-48" />
+          ) : (
+            <div className="flex flex-col items-center gap-3">
+              <div className="flex h-48 w-48 items-center justify-center rounded-lg border border-dashed text-center text-sm text-muted-foreground p-4">
+                QR abhi visible nahi hai.
+              </div>
+              <Button
+                size="sm"
+                onClick={handleRegenerateQr}
+                disabled={qrLoading}
+              >
+                {qrLoading ? "Loading..." : "Show QR Again"}
+              </Button>
+            </div>
+          )}
+          <Badge
+            variant={availableSeats === 0 ? "default" : "secondary"}
+            className={availableSeats === 0 ? "bg-green-600" : ""}
+          >
+            {availableSeats === 0
+              ? "🎉 All seats full — Ready to go!"
+              : `${availableSeats} / ${session.totalSeats} seats available`}
           </Badge>
         </CardContent>
       </Card>
