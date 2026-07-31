@@ -7,7 +7,6 @@ import {
   CalendarDays,
   Clock,
   Settings,
-  History,
   HelpCircle,
   LogOut,
   Plus,
@@ -15,10 +14,13 @@ import {
   ChevronRight,
   MapPin,
   UserRound,
+  Volume2,
+  IndianRupee,
 } from "lucide-react";
 import { usersApi } from "@/lib/api/users";
 import { ridesApi } from "@/lib/api/rides";
 import { useAuthStore } from "@/lib/store/auth-store";
+import { useSpeech } from "@/lib/hooks/use-speech";
 import { DriverDestination } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,11 +47,13 @@ export function DriverProfile() {
     vehicleNumber: string;
     vehicleModel: string | null;
     totalSeats: number;
+    farePerRider: number | null;
   } | null>(null);
   const [stats, setStats] = useState<{
     totalRides: number;
     totalRiders: number;
     estimatedRevenue: number;
+    farePerRider: number;
   } | null>(null);
   const [initialLoading, setInitialLoading] = useState(true);
   const [destinations, setDestinations] = useState<DriverDestination[]>([]);
@@ -57,12 +61,19 @@ export function DriverProfile() {
   const [distanceKm, setDistanceKm] = useState("");
   const [adding, setAdding] = useState(false);
   const [logoutLoading, setLogoutLoading] = useState(false);
+  const { speak, stop, speaking, speakingId } = useSpeech();
+  const maxDestinations = 10;
+  const atLimit = destinations.length >= maxDestinations;
 
   // Dialogs
   const [destDialogOpen, setDestDialogOpen] = useState(false);
   const [accountDialogOpen, setAccountDialogOpen] = useState(false);
   const [name, setName] = useState(user?.name ?? "");
   const [nameLoading, setNameLoading] = useState(false);
+
+  const [fareDialogOpen, setFareDialogOpen] = useState(false);
+  const [fare, setFare] = useState<string>("");
+  const [fareLoading, setFareLoading] = useState(false);
 
   const refreshDestinations = async () => {
     try {
@@ -82,6 +93,9 @@ export function DriverProfile() {
         ]);
         setVehicle(profileData);
         setStats(statsData);
+        if (profileData.farePerRider != null) {
+          setFare(String(profileData.farePerRider));
+        }
       } catch {
         /* ignore */
       }
@@ -91,8 +105,12 @@ export function DriverProfile() {
   }, []);
 
   const handleAddDestination = async () => {
-    if (!label || !distanceKm) {
+    if (!label.trim() || !distanceKm) {
       toast.error("Please enter destination name and distance.");
+      return;
+    }
+    if (destinations.length >= maxDestinations) {
+      toast.error(`You can only add up to ${maxDestinations} destinations.`);
       return;
     }
     setAdding(true);
@@ -119,6 +137,26 @@ export function DriverProfile() {
       await refreshDestinations();
     } catch (err) {
       toast.error(getErrorMessage(err, "Failed to remove destination."));
+    }
+  };
+
+  const handleSaveFare = async () => {
+    const fareNum = Number(fare);
+    if (!fare.trim() || isNaN(fareNum) || fareNum <= 0) {
+      toast.error("Please enter a valid fare amount.");
+      return;
+    }
+    setFareLoading(true);
+    try {
+      await usersApi.updateDriverProfile({ farePerRider: fareNum });
+      toast.success("Per person fare saved!");
+      setFareDialogOpen(false);
+      const { data: statsData } = await ridesApi.getDriverStats();
+      setStats(statsData);
+    } catch (err) {
+      toast.error(getErrorMessage(err, "Failed to save fare."));
+    } finally {
+      setFareLoading(false);
     }
   };
 
@@ -258,12 +296,22 @@ export function DriverProfile() {
           <ChevronRight className="size-5 text-outline" />
         </button>
 
-        <button className="flex w-full items-center justify-between rounded-xl bg-surface-container-lowest px-4 py-3.5 shadow-sm transition-all hover:bg-surface-container-low active:scale-[0.98]">
+        <button
+          onClick={() => setFareDialogOpen(true)}
+          className="flex w-full items-center justify-between rounded-xl bg-surface-container-lowest px-4 py-3.5 shadow-sm transition-all hover:bg-surface-container-low active:scale-[0.98]"
+        >
           <span className="flex items-center gap-3">
             <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-fixed/30">
-              <History className="size-5 text-primary" />
+              <IndianRupee className="size-5 text-primary" />
             </span>
-            <span className="font-body-lg text-body-lg">Ride History</span>
+            <span className="flex flex-col text-left">
+              <span className="font-body-lg text-body-lg">Per Person Fare</span>
+              <span className="font-body-md text-body-md text-on-surface-variant">
+                {stats?.farePerRider != null && stats.farePerRider > 0
+                  ? `₹${stats.farePerRider} per rider`
+                  : "Set fare per rider"}
+              </span>
+            </span>
           </span>
           <ChevronRight className="size-5 text-outline" />
         </button>
@@ -296,8 +344,18 @@ export function DriverProfile() {
       <Dialog open={destDialogOpen} onOpenChange={setDestDialogOpen}>
         <DialogContent className="rounded-[20px] bg-background p-0">
           <DialogHeader className="px-6 pt-6">
-            <DialogTitle className="font-title-md text-title-md text-on-surface">
+            <DialogTitle className="flex items-center justify-between font-title-md text-title-md text-on-surface">
               Destinations
+              <span
+                className={cn(
+                  "font-label-sm rounded-full px-3 py-1 text-label-sm font-semibold",
+                  atLimit
+                    ? "bg-error-container text-on-error-container"
+                    : "bg-primary-fixed text-primary",
+                )}
+              >
+                {destinations.length}/{maxDestinations}
+              </span>
             </DialogTitle>
             <DialogDescription className="font-body-md text-body-md text-on-surface-variant">
               Add routes so you can select them when going online.
@@ -323,7 +381,7 @@ export function DriverProfile() {
               <Button
                 size="icon"
                 onClick={handleAddDestination}
-                disabled={adding}
+                disabled={adding || atLimit}
                 className="h-12 w-12 shrink-0 rounded-xl bg-primary text-white"
               >
                 {adding ? (
@@ -333,6 +391,12 @@ export function DriverProfile() {
                 )}
               </Button>
             </div>
+            {atLimit && (
+              <p className="font-body-md rounded-xl bg-error-container/50 px-4 py-3 text-body-md text-on-error-container">
+                You have reached the limit of {maxDestinations} destinations.
+                Remove one to add a new one.
+              </p>
+            )}
 
             <div className="max-h-64 space-y-2 overflow-y-auto">
               {destinations.length === 0 ? (
@@ -345,13 +409,39 @@ export function DriverProfile() {
                     key={d.id}
                     className="flex items-center justify-between rounded-xl border border-outline-variant/30 bg-surface-container-lowest px-4 py-3"
                   >
-                    <div>
-                      <p className="font-body-lg text-body-lg font-medium text-on-surface">
-                        {d.label}
-                      </p>
-                      <p className="font-body-md text-body-md text-on-surface-variant">
-                        {d.distanceKm} km
-                      </p>
+                    <div className="flex items-center gap-3">
+                      <button
+                        type="button"
+                        aria-label={`Speak ${d.label}`}
+                        onClick={() => {
+                          if (speaking && speakingId === d.id) {
+                            stop();
+                          } else {
+                            speak(d.label, d.id);
+                          }
+                        }}
+                        className={cn(
+                          "flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-all active:scale-90",
+                          speaking && speakingId === d.id
+                            ? "bg-primary text-white"
+                            : "bg-primary/10 text-primary",
+                        )}
+                      >
+                        <Volume2
+                          className={cn(
+                            "size-5",
+                            speaking && speakingId === d.id && "animate-pulse",
+                          )}
+                        />
+                      </button>
+                      <div>
+                        <p className="font-body-lg text-body-lg font-medium text-on-surface">
+                          {d.label}
+                        </p>
+                        <p className="font-body-md text-body-md text-on-surface-variant">
+                          {d.distanceKm} km
+                        </p>
+                      </div>
                     </div>
                     <button
                       onClick={() => handleDeleteDestination(d.id)}
@@ -432,6 +522,64 @@ export function DriverProfile() {
                 <span className="size-5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
               ) : (
                 "Save Changes"
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Per Person Fare Dialog */}
+      <Dialog open={fareDialogOpen} onOpenChange={setFareDialogOpen}>
+        <DialogContent className="rounded-[20px] bg-background p-0">
+          <DialogHeader className="px-6 pt-6">
+            <DialogTitle className="flex items-center gap-2 font-title-md text-title-md text-on-surface">
+              <IndianRupee className="size-5 text-primary" />
+              Per Person Fare
+            </DialogTitle>
+            <DialogDescription className="font-body-md text-body-md text-on-surface-variant">
+              Set how much to charge each rider. This is used to calculate your
+              estimated earnings.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="space-y-4 px-6">
+            <div className="space-y-2">
+              <Label className="font-label-sm text-label-sm uppercase tracking-wider text-on-surface-variant">
+                Fare per rider (₹)
+              </Label>
+              <Input
+                type="number"
+                step="1"
+                min="0"
+                value={fare}
+                onChange={(e) => setFare(e.target.value)}
+                placeholder="e.g. 10"
+                className="h-14 w-full rounded-xl border-0 bg-surface-container-low px-4 font-body-lg text-body-lg focus:bg-white focus:ring-2 focus:ring-primary"
+              />
+            </div>
+            <p className="font-body-md rounded-xl bg-primary-fixed/30 px-4 py-3 text-body-md text-primary">
+              Example: ₹{fare || "10"} per rider × 4 riders = ₹
+              {fare ? Number(fare) * 4 : 40} per trip
+            </p>
+          </div>
+
+          <DialogFooter className="flex gap-2 px-6 pb-6">
+            {/* <Button
+              variant="outline"
+              onClick={() => setFareDialogOpen(false)}
+              className="h-12 flex-1 rounded-xl"
+            >
+              Cancel
+            </Button> */}
+            <Button
+              onClick={handleSaveFare}
+              disabled={fareLoading}
+              className="h-12 flex-1 rounded-xl bg-primary text-white font-title-md text-body-lg font-semibold py-3 text-white"
+            >
+              {fareLoading ? (
+                <span className="size-5 animate-spin rounded-full border-2 border-white/40 border-t-white" />
+              ) : (
+                "Save Fare"
               )}
             </Button>
           </DialogFooter>

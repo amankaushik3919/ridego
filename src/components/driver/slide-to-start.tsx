@@ -14,6 +14,7 @@ interface SlideToStartProps {
 }
 
 const THUMB_SIZE = 48;
+const EDGE_GAP = 5;
 
 export function SlideToStart({
   onStart,
@@ -24,13 +25,14 @@ export function SlideToStart({
   variant = "primary",
 }: SlideToStartProps) {
   const trackRef = useRef<HTMLDivElement>(null);
-  const [offset, setOffset] = useState(0);
+  const [offset, setOffset] = useState(EDGE_GAP);
   const [dragging, setDragging] = useState(false);
   const [maxOffset, setMaxOffset] = useState(0);
 
   const measure = () => {
     const track = trackRef.current;
-    if (track) setMaxOffset(track.clientWidth - THUMB_SIZE - 8);
+    if (track)
+      setMaxOffset(track.clientWidth - THUMB_SIZE - EDGE_GAP);
   };
 
   const startDrag = (clientX: number) => {
@@ -44,8 +46,11 @@ export function SlideToStart({
     const track = trackRef.current;
     if (!track) return;
     const rect = track.getBoundingClientRect();
-    const max = rect.width - THUMB_SIZE - 8;
-    const pos = Math.min(Math.max(clientX - rect.left - THUMB_SIZE / 2, 4), max);
+    const max = rect.width - THUMB_SIZE - EDGE_GAP;
+    const pos = Math.min(
+      Math.max(clientX - rect.left - THUMB_SIZE / 2, EDGE_GAP),
+      max,
+    );
     setMaxOffset(max);
     setOffset(pos);
   };
@@ -57,7 +62,7 @@ export function SlideToStart({
       setOffset(maxOffset);
       onStart();
     } else {
-      setOffset(0);
+      setOffset(EDGE_GAP);
     }
   };
 
@@ -93,8 +98,8 @@ export function SlideToStart({
         "[touch-action:none]",
         variant === "destructive"
           ? loading
-            ? "bg-error/80"
-            : "bg-error"
+            ? "bg-error/80 shadow-none"
+            : "bg-error shadow-[0_8px_20px_-4px_rgba(186,26,26,0.5)]"
           : loading
             ? "bg-primary/80"
             : "bg-primary",
@@ -103,7 +108,7 @@ export function SlideToStart({
     >
       <div
         className="pointer-events-none absolute inset-y-0 left-0 bg-white/20"
-        style={{ width: `${offset}px` }}
+        style={{ width: `${offset - EDGE_GAP}px` }}
       />
       <span className="pointer-events-none absolute inset-0 flex items-center justify-center gap-2 font-title-md text-title-md font-semibold text-white">
         {loading ? (

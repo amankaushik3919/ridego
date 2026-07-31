@@ -18,6 +18,7 @@ export const usersApi = {
       vehicleNumber: string;
       vehicleModel: string;
       totalSeats: number;
+      farePerRider: number;
     }>,
   ) => apiClient.patch("/users/driver-profile", data),
 

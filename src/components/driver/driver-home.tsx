@@ -18,6 +18,7 @@ export function DriverHome() {
     totalRiders: number;
     totalDistance: number;
     estimatedRevenue: number;
+    farePerRider: number;
   } | null>(null);
   const [vehicle, setVehicle] = useState<{ vehicleNumber: string } | null>(
     null,
@@ -97,6 +98,11 @@ export function DriverHome() {
           </span>
           <span className="font-display-lg text-display-lg font-bold leading-none text-on-surface">
             ₹{stats.estimatedRevenue}
+          </span>
+          <span className="font-body-md text-body-md text-on-surface-variant">
+            {stats.farePerRider > 0
+              ? `₹${stats.farePerRider}/rider`
+              : "Set fare in profile"}
           </span>
         </div>
 

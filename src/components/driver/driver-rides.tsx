@@ -11,8 +11,17 @@ import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Loader2, QrCode, MapPin, ChevronDown, X, Navigation } from "lucide-react";
-import { getErrorMessage, cn } from "@/lib/utils";
+import {
+  Loader2,
+  QrCode,
+  MapPin,
+  ChevronDown,
+  X,
+  Navigation,
+  Volume2,
+} from "lucide-react";
+import { useSpeech } from "@/lib/hooks/use-speech";
+import { getErrorMessage, cn, haversineMeters } from "@/lib/utils";
 import { SlideToStart } from "./slide-to-start";
 import { toast } from "sonner";
 
@@ -30,6 +39,7 @@ export function DriverRides() {
   const [starting, setStarting] = useState(false);
   const [ending, setEnding] = useState(false);
   const [qrLoading, setQrLoading] = useState(false);
+  const { speak, stop, speaking, speakingId } = useSpeech();
 
   useEffect(() => {
     (async () => {
@@ -93,6 +103,51 @@ export function DriverRides() {
       );
     });
   };
+
+  useEffect(() => {
+    if (!isOn || !session?.sessionId) return;
+
+    let lastLat: number | null = null;
+    let lastLng: number | null = null;
+    let sending = false;
+    let stopped = false;
+
+    const sendIfMoved = async (lat: number, lng: number) => {
+      if (sending || stopped) return;
+      if (
+        lastLat !== null &&
+        lastLng !== null &&
+        haversineMeters(lastLat, lastLng, lat, lng) < 10
+      ) {
+        return;
+      }
+      sending = true;
+      try {
+        await ridesApi.updateLocation(lat, lng);
+        lastLat = lat;
+        lastLng = lng;
+      } catch {
+        /* transient error — agle tick par retry */
+      } finally {
+        sending = false;
+      }
+    };
+
+    const watchId = navigator.geolocation.watchPosition(
+      (pos) => {
+        void sendIfMoved(pos.coords.latitude, pos.coords.longitude);
+      },
+      () => {
+        /* permission denied — silent, nearby list purane location se hi chalega */
+      },
+      { enableHighAccuracy: true, maximumAge: 5000, timeout: 15000 },
+    );
+
+    return () => {
+      stopped = true;
+      if (watchId !== null) navigator.geolocation.clearWatch(watchId);
+    };
+  }, [isOn, session?.sessionId]);
 
   const handleToggle = async (checked: boolean) => {
     if (!checked) {
@@ -331,14 +386,22 @@ export function DriverRides() {
               destinations.map((d) => {
                 const active = d.id === selectedId;
                 return (
-                  <button
+                  <div
                     key={d.id}
+                    role="button"
+                    tabIndex={0}
                     onClick={() => {
                       setSelectedId(d.id);
                       setDestPickerOpen(false);
                     }}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        setSelectedId(d.id);
+                        setDestPickerOpen(false);
+                      }
+                    }}
                     className={cn(
-                      "flex w-full items-center gap-3 rounded-2xl border-2 px-4 py-4 text-left transition-all active:scale-[0.99]",
+                      "flex w-full cursor-pointer items-center gap-3 rounded-2xl border-2 px-4 py-4 text-left transition-all active:scale-[0.99]",
                       active
                         ? "border-primary bg-primary/5"
                         : "border-transparent bg-surface-container-low",
@@ -362,12 +425,38 @@ export function DriverRides() {
                         {d.distanceKm} km away
                       </span>
                     </span>
+                    <button
+                      type="button"
+                      aria-label={`Speak ${d.label}`}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (speaking && speakingId === d.id) {
+                          stop();
+                        } else {
+                          speak(d.label, d.id);
+                        }
+                      }}
+                      onPointerDown={(e) => e.stopPropagation()}
+                      className={cn(
+                        "flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-all active:scale-90",
+                        speaking && speakingId === d.id
+                          ? "bg-primary text-white"
+                          : "bg-primary/10 text-primary",
+                      )}
+                    >
+                      <Volume2
+                        className={cn(
+                          "size-5",
+                          speaking && speakingId === d.id && "animate-pulse",
+                        )}
+                      />
+                    </button>
                     {active && (
                       <span className="font-label-sm rounded-full bg-primary px-3 py-1 text-label-sm font-semibold text-white">
                         Selected
                       </span>
                     )}
-                  </button>
+                  </div>
                 );
               })
             )}

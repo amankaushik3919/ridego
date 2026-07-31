@@ -8,6 +8,9 @@ export const ridesApi = {
 
   startRide: () => apiClient.post("/rides/start"),
 
+  updateLocation: (lat: number, lng: number) =>
+    apiClient.post("/rides/location", { lat, lng }),
+
   getNearby: (lat: number, lng: number, radiusKm = 2) =>
     apiClient.get("/rides/nearby", { params: { lat, lng, radiusKm } }),
 

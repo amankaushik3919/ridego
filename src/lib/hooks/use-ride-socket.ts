@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { getSocket } from "@/lib/socket";
 
 interface UseRideSocketOptions {
@@ -10,12 +10,18 @@ interface UseRideSocketOptions {
     sessionId: string;
     reason: "COMPLETED" | "EXPIRED";
   }) => void;
+  onDriverLocation?: (data: {
+    sessionId: string;
+    lat: number;
+    lng: number;
+  }) => void;
 }
 
 export function useRideSocket({
   sessionId,
   onSeatUpdate,
   onSessionEnded,
+  onDriverLocation,
 }: UseRideSocketOptions) {
   useEffect(() => {
     if (!sessionId) return;
@@ -47,8 +53,13 @@ export function useRideSocket({
       if (data.sessionId === sessionId) onSessionEnded?.(data);
     };
 
+    const handleDriverLocation = (data: any) => {
+      if (data.sessionId === sessionId) onDriverLocation?.(data);
+    };
+
     socket.on("seatUpdate", handleSeatUpdate);
     socket.on("sessionEnded", handleSessionEnded);
+    socket.on("driverLocation", handleDriverLocation);
     socket.on("connect_error", (err) =>
       console.error("[socket] connect_error:", err.message),
     );
@@ -57,6 +68,7 @@ export function useRideSocket({
       socket.emit("leaveSession", { sessionId });
       socket.off("seatUpdate", handleSeatUpdate);
       socket.off("sessionEnded", handleSessionEnded);
+      socket.off("driverLocation", handleDriverLocation);
     };
-  }, [sessionId, onSeatUpdate, onSessionEnded]);
+  }, [sessionId, onSeatUpdate, onSessionEnded, onDriverLocation]);
 }
