@@ -29,7 +29,7 @@ export default function DashboardPage() {
         .getDriverProfile()
         .catch(() => {
           // Vehicle register nahi hai abhi — register-vehicle pe bhej do
-          router.replace("/dashboard/register-vehicle");
+          router.replace("/register-vehicle");
         })
         .finally(() => setCheckingVehicle(false));
     }

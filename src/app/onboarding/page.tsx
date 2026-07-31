@@ -41,7 +41,7 @@ export default function OnboardingPage() {
       updateUser({ ...data, role: data.role });
 
       if (role === "DRIVER") {
-        router.push("/dashboard/register-vehicle");
+        router.push("/register-vehicle");
       } else {
         router.push("/dashboard");
       }

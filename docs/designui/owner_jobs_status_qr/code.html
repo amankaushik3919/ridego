@@ -1,0 +1,300 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface": "#f8f9fb",
+                    "on-primary-container": "#eeefff",
+                    "surface-container": "#edeef0",
+                    "on-error-container": "#93000a",
+                    "secondary": "#006c49",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "tertiary-fixed": "#ffddb8",
+                    "surface-variant": "#e1e2e4",
+                    "surface-container-lowest": "#ffffff",
+                    "on-primary-fixed": "#00174b",
+                    "on-tertiary-container": "#ffeedd",
+                    "surface-dim": "#d9dadc",
+                    "on-primary": "#ffffff",
+                    "on-tertiary": "#ffffff",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-tint": "#0053db",
+                    "secondary-fixed-dim": "#4edea3",
+                    "inverse-surface": "#2e3132",
+                    "on-surface": "#191c1e",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "background": "#f8f9fb",
+                    "on-background": "#191c1e",
+                    "secondary-fixed": "#6ffbbe",
+                    "outline": "#737686",
+                    "on-secondary": "#ffffff",
+                    "error": "#ba1a1a",
+                    "surface-container-low": "#f3f4f6",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "tertiary": "#784b00",
+                    "surface-bright": "#f8f9fb",
+                    "surface-container-highest": "#e1e2e4",
+                    "tertiary-container": "#996100",
+                    "surface-container-high": "#e7e8ea",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-secondary-container": "#00714d",
+                    "on-secondary-fixed": "#002113",
+                    "error-container": "#ffdad6",
+                    "inverse-primary": "#b4c5ff",
+                    "on-error": "#ffffff",
+                    "primary": "#004ac6",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-surface-variant": "#434655",
+                    "primary-container": "#2563eb",
+                    "secondary-container": "#6cf8bb",
+                    "outline-variant": "#c3c6d7",
+                    "inverse-on-surface": "#f0f1f3",
+                    "primary-fixed": "#dbe1ff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xl": "32px",
+                    "gutter": "16px",
+                    "touch-target": "48px",
+                    "sm": "12px",
+                    "margin-mobile": "20px",
+                    "xs": "8px",
+                    "md": "16px",
+                    "lg": "24px",
+                    "base": "4px"
+            },
+            "fontFamily": {
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "title-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "headline-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-glow {
+            box-shadow: 0 0 20px rgba(0, 74, 198, 0.15);
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        @keyframes scan {
+            0%, 100% { transform: translateY(0); opacity: 0; }
+            50% { transform: translateY(128px); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen font-body-md pb-32">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-on-surface flex justify-between items-center px-margin-mobile h-touch-target">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Jobs</h1>
+<div class="flex items-center gap-md">
+<button class="w-touch-target h-touch-target flex items-center justify-center hover:bg-surface-container-low transition-colors rounded-full transition-transform active:scale-90">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+<div class="w-10 h-10 rounded-full border-2 border-primary overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional close-up portrait of a friendly rickshaw owner in a clean uniform, smiling at the camera. The background is a soft-focus urban environment in daylight, using a clean, modern aesthetic with bright lighting and professional photography style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyv01PNJtdm4qSZiYjpp3ZXY161VL7DBlB7rtBf23qxkEAYQXEO-L8E4b8WM7xzxfYMXIHEAfXsP1NvkmhTLsj5ErTavdioRcomXcz9PFmMD7h1cgtniI5TWLsNLjnsCZYXYCgf3oSoEMnhnITSFcJS3TrWrbcey4GYVsDL7DCPlhSCdQy1ApIuKsWKHwh7ljX8fqJH-hjbIcLRLdKzREqSVK2WN8p-lF968U_8VYTRYcb4pEPzMyifmslzgYkRQIEdNpqOImoxYyV">
+</div>
+</div>
+</header>
+<main class="px-margin-mobile pt-md space-y-xs">
+<!-- Online Status Section -->
+<section class="bg-surface-container-lowest rounded-xl p-md shadow-md border border-outline-variant transition-all duration-300" id="status-card">
+<div class="flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-semibold text-on-surface" id="status-text">Go Online</span>
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-outline transition-colors duration-300" id="status-indicator"></div>
+<span class="text-label-sm text-on-surface-variant" id="status-subtext">You are currently offline</span>
+</div>
+</div>
+<button class="w-12 h-6 bg-surface-container-highest rounded-full relative p-1 transition-all duration-300" id="online-toggle" onclick="toggleOnline()">
+<div class="w-4 h-4 bg-white rounded-full shadow-md transition-transform duration-300 translate-x-0" id="toggle-knob"></div>
+</button>
+</div>
+</section>
+<!-- Destination Selection -->
+<section class="space-y-md">
+<div class="space-y-xs">
+<label class="font-semibold text-on-surface text-body-md">Select Route</label>
+<div class="relative">
+<button class="w-full flex items-center justify-between p-md bg-white border border-outline-variant rounded-xl text-left" onclick="document.getElementById('route-dropdown').classList.toggle('hidden')">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-lg overflow-hidden bg-surface-container">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoYXFInfmHa3AXeEHO9X_7nEvK3uCztgxFH_VaSQnbCIhKX82kCdpngw9cDBij9ESUqqnrcT-CAW39ADP_7gcjkI43qEfgn4NwrBXWg9noBu9wlzfU3-jTBGjP6cxLLTPXWFWnYba9X5QmUODzJUwgzh10WPZxU3R4b7KB_jHbTwnBhx8TrCCAlxgEBbPLbKbj2iiYXWfP4Noy5dEiKjld8SK12ROmr-j43XRE9hvr4aERrR9jXn76hGBwWyBpFUCX_aRHkWQaCREK">
+</div>
+<span class="font-body-md font-semibold" id="selected-route-name">Select a destination</span>
+</div>
+<span class="material-symbols-outlined">expand_more</span>
+</button>
+<div class="absolute top-full left-0 w-full bg-white border border-outline-variant rounded-xl mt-1 shadow-lg z-10 hidden" id="route-dropdown">
+<div class="p-md hover:bg-surface-container-low cursor-pointer border-b border-outline-variant" onclick="selectDestination('Metro Station')">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoYXFInfmHa3AXeEHO9X_7nEvK3uCztgxFH_VaSQnbCIhKX82kCdpngw9cDBij9ESUqqnrcT-CAW39ADP_7gcjkI43qEfgn4NwrBXWg9noBu9wlzfU3-jTBGjP6cxLLTPXWFWnYba9X5QmUODzJUwgzh10WPZxU3R4b7KB_jHbTwnBhx8TrCCAlxgEBbPLbKbj2iiYXWfP4Noy5dEiKjld8SK12ROmr-j43XRE9hvr4aERrR9jXn76hGBwWyBpFUCX_aRHkWQaCREK">
+</div>
+<span>Metro Station</span>
+</div>
+</div>
+<div class="p-md hover:bg-surface-container-low cursor-pointer border-b border-outline-variant" onclick="selectDestination('City Center')">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoYXFInfmHa3AXeEHO9X_7nEvK3uCztgxFH_VaSQnbCIhKX82kCdpngw9cDBij9ESUqqnrcT-CAW39ADP_7gcjkI43qEfgn4NwrBXWg9noBu9wlzfU3-jTBGjP6cxLLTPXWFWnYba9X5QmUODzJUwgzh10WPZxU3R4b7KB_jHbTwnBhx8TrCCAlxgEBbPLbKbj2iiYXWfP4Noy5dEiKjld8SK12ROmr-j43XRE9hvr4aERrR9jXn76hGBwWyBpFUCX_aRHkWQaCREK">
+</div>
+<span>City Center</span>
+</div>
+</div>
+<div class="p-md hover:bg-surface-container-low cursor-pointer" onclick="selectDestination('Main Market')">
+<div class="flex items-center gap-md">
+<div class="w-8 h-8 rounded bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDoYXFInfmHa3AXeEHO9X_7nEvK3uCztgxFH_VaSQnbCIhKX82kCdpngw9cDBij9ESUqqnrcT-CAW39ADP_7gcjkI43qEfgn4NwrBXWg9noBu9wlzfU3-jTBGjP6cxLLTPXWFWnYba9X5QmUODzJUwgzh10WPZxU3R4b7KB_jHbTwnBhx8TrCCAlxgEBbPLbKbj2iiYXWfP4Noy5dEiKjld8SK12ROmr-j43XRE9hvr4aERrR9jXn76hGBwWyBpFUCX_aRHkWQaCREK">
+</div>
+<span>Main Market</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- QR Code Section -->
+<div class="bg-primary-container/5 border border-dashed border-primary rounded-xl p-md flex flex-col items-center text-center space-y-xs opacity-0 hidden transition-all duration-300 transform translate-y-4" id="qr-section">
+<h3 class="text-label-sm font-bold text-primary uppercase tracking-wider">Rider Check-in</h3>
+<div class="bg-white p-md rounded-lg shadow-md relative overflow-hidden">
+<img alt="QR Code" class="w-32 h-32" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBs8FHtt2fujPQGlw9ViijiqahuzfWPT0ZAm0CF24rDEQH5SVhOiM8DfqJQV_kzoCrpTNS9mc2zyMLXzDbffrr6MZU-_TXWeqv5Xu3CRHJFWxoN9XwqzsuHURP7l1kR4a-kw0dFnTvZabTBGWkdR4SWtQwoJu49oClJiUlZkUvgyMWNvDaPUwph5XTv-R0MO_ifEXD6zHfoKZArxCFA7DyLeiRoI3_5FymisAGM0zWkB_skmyZUNb-GL-PF3IWeWm4Z4YA3vHnn3au_">
+<div class="absolute inset-x-0 top-0 h-0.5 bg-primary/40 animate-[scan_2s_ease-in-out_infinite]"></div>
+</div>
+<p class="text-label-sm text-on-surface-variant" id="selected-dest-label">Scan to book</p>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl glass-nav bg-surface/80 dark:bg-on-surface/80 shadow-[0_-4px_20px_0_rgba(0,0,0,0.04)] border-t border-white/10 flex justify-around items-center px-margin-mobile pb-xs pt-xs">
+<!-- Home -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all duration-150 active:scale-98" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</a>
+<!-- Jobs (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-lg py-xs transition-all duration-150 active:scale-98" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">work</span>
+<span class="font-label-sm text-label-sm font-bold mt-1">Jobs</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all duration-150 active:scale-98" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1">Profile</span>
+</a>
+</nav>
+<script>
+        let isOnline = false;
+        let selectedRoute = null;
+
+        function toggleOnline() {
+            isOnline = !isOnline;
+            const toggle = document.getElementById('online-toggle');
+            const knob = document.getElementById('toggle-knob');
+            const statusText = document.getElementById('status-text');
+            const statusSubtext = document.getElementById('status-subtext');
+            const statusIndicator = document.getElementById('status-indicator');
+            const card = document.getElementById('status-card');
+
+            if (isOnline) {
+                // To Online
+                toggle.classList.remove('bg-surface-container-highest');
+                toggle.classList.add('bg-primary');
+                knob.classList.remove('translate-x-0');
+                knob.classList.add('translate-x-6');
+                
+                statusText.innerText = 'You are Online';
+                statusSubtext.innerText = 'Receiving new booking requests';
+                statusIndicator.classList.remove('bg-outline');
+                statusIndicator.classList.add('bg-secondary');
+                
+                card.classList.add('border-primary', 'bg-primary/5');
+            } else {
+                // To Offline
+                toggle.classList.remove('bg-primary');
+                toggle.classList.add('bg-surface-container-highest');
+                knob.classList.remove('translate-x-6');
+                knob.classList.add('translate-x-0');
+                
+                statusText.innerText = 'Go Online';
+                statusSubtext.innerText = 'You are currently offline';
+                statusIndicator.classList.remove('bg-secondary');
+                statusIndicator.classList.add('bg-outline');
+                
+                card.classList.remove('border-primary', 'bg-primary/5');
+                
+                // Hide QR code if user goes offline
+                hideQR();
+            }
+        }
+
+        function selectDestination(name) {
+            document.getElementById('route-dropdown').classList.add('hidden');
+            document.getElementById('selected-route-name').innerText = name;
+            selectedRoute = name;
+
+            if (!isOnline) {
+                alert("Please go online first to select a route.");
+                return;
+            }
+
+            showQR(name);
+        }
+
+        function showQR(name) {
+            const qrSection = document.getElementById('qr-section');
+            document.getElementById('selected-dest-label').innerText = `Scan to book for ${name}`;
+            
+            qrSection.classList.remove('hidden');
+            // Force reflow
+            void qrSection.offsetWidth;
+            
+            qrSection.classList.replace('opacity-0', 'opacity-100');
+            qrSection.classList.replace('translate-y-4', 'translate-y-0');
+            
+            qrSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+
+        function hideQR() {
+            const qrSection = document.getElementById('qr-section');
+            if (!qrSection.classList.contains('hidden')) {
+                qrSection.classList.replace('opacity-100', 'opacity-0');
+                qrSection.classList.replace('translate-y-0', 'translate-y-4');
+                setTimeout(() => {
+                    qrSection.classList.add('hidden');
+                }, 300);
+            }
+        }
+    </script>
+</body></html>

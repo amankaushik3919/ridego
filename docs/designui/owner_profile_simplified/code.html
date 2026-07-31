@@ -1,0 +1,220 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-surface": "#191c1e",
+                        "secondary-fixed": "#6ffbbe",
+                        "surface-variant": "#e1e2e4",
+                        "on-primary-fixed-variant": "#003ea8",
+                        "surface-dim": "#d9dadc",
+                        "surface-tint": "#0053db",
+                        "on-background": "#191c1e",
+                        "error": "#ba1a1a",
+                        "on-secondary-container": "#00714d",
+                        "secondary-fixed-dim": "#4edea3",
+                        "tertiary-fixed": "#ffddb8",
+                        "on-primary": "#ffffff",
+                        "secondary": "#006c49",
+                        "tertiary-fixed-dim": "#ffb95f",
+                        "inverse-surface": "#2e3132",
+                        "on-secondary-fixed": "#002113",
+                        "surface-bright": "#f8f9fb",
+                        "secondary-container": "#6cf8bb",
+                        "on-tertiary": "#ffffff",
+                        "tertiary-container": "#996100",
+                        "outline": "#737686",
+                        "on-secondary-fixed-variant": "#005236",
+                        "on-primary-fixed": "#00174b",
+                        "primary-fixed": "#dbe1ff",
+                        "surface-container": "#edeef0",
+                        "on-tertiary-container": "#ffeedd",
+                        "outline-variant": "#c3c6d7",
+                        "surface-container-highest": "#e1e2e4",
+                        "surface-container-high": "#e7e8ea",
+                        "surface-container-low": "#f3f4f6",
+                        "on-surface-variant": "#434655",
+                        "primary-fixed-dim": "#b4c5ff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "background": "#f8f9fb",
+                        "on-tertiary-fixed-variant": "#653e00",
+                        "on-tertiary-fixed": "#2a1700",
+                        "surface-container-lowest": "#ffffff",
+                        "inverse-primary": "#b4c5ff",
+                        "error-container": "#ffdad6",
+                        "inverse-on-surface": "#f0f1f3",
+                        "on-primary-container": "#eeefff",
+                        "primary-container": "#2563eb",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#784b00",
+                        "surface": "#f8f9fb",
+                        "primary": "#004ac6"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xs": "8px",
+                        "md": "16px",
+                        "margin-mobile": "20px",
+                        "lg": "24px",
+                        "touch-target": "48px",
+                        "xl": "32px",
+                        "base": "4px",
+                        "sm": "12px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-md": ["Inter"],
+                        "body-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "display-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                        "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-font-smoothing: antialiased; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- Top AppBar (From JSON logic) -->
+<header class="w-full top-0 sticky z-40 bg-surface dark:bg-on-surface flex justify-between items-center px-margin-mobile h-touch-target">
+<div class="flex items-center gap-md">
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed-dim">Ride Connect</span>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors p-2 rounded-full">
+            notifications
+        </button>
+</header>
+<main class="px-margin-mobile mt-lg space-y-xl">
+<!-- OWNER PROFILE SECTION -->
+<section class="flex flex-col items-center text-center space-y-md">
+<div class="space-y-base">
+<div class="flex flex-col items-center gap-base text-on-surface-variant font-body-md text-body-md">
+<div class="flex items-center gap-xs bg-surface-container-high px-md py-1 rounded-full border border-outline-variant cursor-pointer" onclick="window.location.href='{{DATA:SCREEN:SCREEN_2}}'">
+<span class="material-symbols-outlined text-[16px]">directions_car</span>
+<span class="font-bold">Vehicle Number</span>
+</div>
+</div>
+</div>
+</section>
+<!-- STATISTICS GRID (Bento Style) -->
+<section class="grid grid-cols-2 gap-md">
+<!-- Total Riders (Large Card) -->
+<div class="col-span-2 glass-card rounded-xl p-lg shadow-[0_4px_20px_0_rgba(0,0,0,0.04)] flex justify-between items-center overflow-hidden relative">
+<div class="space-y-xs z-10">
+<p class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">Total Riders</p>
+<h2 class="font-display-lg text-display-lg text-primary">1,284</h2>
+</div>
+<div class="material-symbols-outlined text-[64px] text-primary/10 absolute -right-4 -bottom-2 rotate-12" style="font-variation-settings: 'FILL' 1;">group</div>
+</div>
+<!-- Today's Riders -->
+<div class="glass-card rounded-xl p-md shadow-[0_4px_20px_0_rgba(0,0,0,0.04)] space-y-md">
+<div class="w-10 h-10 rounded-lg bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-container">calendar_today</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Today's Riders</p>
+<p class="font-title-md text-title-md text-on-surface">42</p>
+</div>
+</div>
+<!-- Online Hours -->
+<div class="glass-card rounded-xl p-md shadow-[0_4px_20px_0_rgba(0,0,0,0.04)] space-y-md">
+<div class="w-10 h-10 rounded-lg bg-tertiary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-tertiary-fixed-variant">schedule</span>
+</div>
+<div>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Online Hours</p>
+<p class="font-title-md text-title-md text-on-surface">8.5h</p>
+</div>
+</div>
+</section>
+<!-- ACTION LIST -->
+<section class="space-y-xs">
+<button class="w-full h-touch-target flex items-center justify-between px-md bg-surface-container-lowest rounded-xl hover:bg-surface-container-low transition-colors active:scale-98 transition-transform">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">settings</span>
+<span class="font-body-lg text-body-lg">Account Settings</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</button>
+<button class="w-full h-touch-target flex items-center justify-between px-md bg-surface-container-lowest rounded-xl hover:bg-surface-container-low transition-colors active:scale-98 transition-transform">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">history</span>
+<span class="font-body-lg text-body-lg">Ride History</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</button>
+<button class="w-full h-touch-target flex items-center justify-between px-md bg-surface-container-lowest rounded-xl hover:bg-surface-container-low transition-colors active:scale-98 transition-transform">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-primary">help_outline</span>
+<span class="font-body-lg text-body-lg">Support &amp; FAQ</span>
+</div>
+<span class="material-symbols-outlined text-outline-variant">chevron_right</span>
+</button>
+</section>
+<!-- LOGOUT BUTTON -->
+<section class="pt-xl">
+<button class="w-full h-[56px] flex items-center justify-center gap-md bg-error-container text-on-error-container font-title-md text-title-md rounded-xl hover:opacity-90 active:scale-[0.98] transition-all" onclick="window.location.href='{{DATA:SCREEN:SCREEN_8}}'">
+<span class="material-symbols-outlined">logout</span>
+                Logout
+            </button>
+</section>
+</main>
+<!-- Bottom Navigation Bar (From JSON structure) -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/80 dark:bg-on-surface/80 backdrop-blur-xl border-t border-white/10 shadow-[0_-4px_20px_0_rgba(0,0,0,0.04)] flex justify-around items-center px-margin-mobile pb-xs pt-xs"><a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all duration-150 active:scale-98" href="{{DATA:SCREEN:SCREEN_10}}"><span class="material-symbols-outlined">home</span><span class="font-label-sm text-label-sm">Home</span></a><a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all duration-150 active:scale-98" href="{{DATA:SCREEN:SCREEN_3}}"><span class="material-symbols-outlined">work</span><span class="font-label-sm text-label-sm">Jobs</span></a><a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-lg py-xs transition-all duration-150 active:scale-98" href="{{DATA:SCREEN:SCREEN_9}}"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span><span class="font-label-sm text-label-sm">Profile</span></a></nav>
+<script>
+        // Micro-interaction: Button hover effects
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('mousedown', () => {
+                el.style.transform = 'scale(0.96)';
+            });
+            el.addEventListener('mouseup', () => {
+                el.style.transform = 'scale(1)';
+            });
+            el.addEventListener('mouseleave', () => {
+                el.style.transform = 'scale(1)';
+            });
+        });
+    </script>
+</body></html>

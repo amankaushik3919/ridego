@@ -1,0 +1,216 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#191c1e",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-variant": "#e1e2e4",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "surface-dim": "#d9dadc",
+                    "surface-tint": "#0053db",
+                    "on-background": "#191c1e",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#00714d",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-primary": "#ffffff",
+                    "secondary": "#006c49",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "inverse-surface": "#2e3132",
+                    "on-secondary-fixed": "#002113",
+                    "surface-bright": "#f8f9fb",
+                    "secondary-container": "#6cf8bb",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#996100",
+                    "outline": "#737686",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-primary-fixed": "#00174b",
+                    "primary-fixed": "#dbe1ff",
+                    "surface-container": "#edeef0",
+                    "on-tertiary-container": "#ffeedd",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-highest": "#e1e2e4",
+                    "surface-container-high": "#e7e8ea",
+                    "surface-container-low": "#f3f4f6",
+                    "on-surface-variant": "#434655",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "background": "#f8f9fb",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#b4c5ff",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f0f1f3",
+                    "on-primary-container": "#eeefff",
+                    "primary-container": "#2563eb",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#784b00",
+                    "surface": "#f8f9fb",
+                    "primary": "#004ac6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "md": "16px",
+                    "margin-mobile": "20px",
+                    "lg": "24px",
+                    "touch-target": "48px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "sm": "12px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            background-color: #f8f9fb;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .custom-shadow {
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-on-surface flex justify-between items-center px-margin-mobile h-touch-target">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed-dim">Ride Connect</h1>
+<div class="flex items-center gap-md">
+<button class="material-symbols-outlined text-primary hover:bg-surface-container-low transition-colors p-2 rounded-full">notifications</button>
+<div class="w-8 h-8 rounded-full bg-primary-fixed flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A professional studio portrait of a friendly young man with a confident smile, wearing a modern minimalist navy blue polo shirt. The lighting is soft and even, highlighting clear skin and sharp features against a clean, light grey studio background, embodying a premium and dependable utility brand aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_CJblVgzBQHn1cHa_ijPqrbx1vpFj0_9DdWWbUxeDKQCEc1zrysQsk6UGInwXlnUL3gRDDutFbsrkdsYtz2mni5NuxY_UHTJkESUqZ191A8eBnIQKBlpTBasTPFVAOxAkCu3ax_FuqxauhKHT2eNFiBBKaNH4PIaFHve4i546EFsHhxohD1TqJGG7CX98zBYHGKIPxPTDB9P7wJroywR4bzA_imt9GH4gpERuDbdJXJREqhnkTooytQ">
+</div>
+</div>
+</header>
+<main class="px-margin-mobile pt-lg">
+<!-- Profile Identity Section -->
+<section class="flex flex-col items-center text-center mb-xl">
+
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs">Julian Marcus</h2>
+<p class="font-body-md text-body-md text-on-surface-variant flex items-center justify-center gap-xs">
+<span class="material-symbols-outlined text-[18px]">phone_iphone</span>
+                +1 (555) 0123-4567
+            </p>
+</section>
+<!-- Stats Bento Grid -->
+<div class="grid grid-cols-2 gap-md mb-xl">
+<div class="glass-card p-lg rounded-xl flex flex-col justify-between custom-shadow">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-primary bg-primary-fixed/30 p-2 rounded-lg">directions_car</span>
+<span class="text-on-surface-variant font-label-sm text-label-sm">TOTAL</span>
+</div>
+<div class="mt-md">
+<p class="font-display-lg text-display-lg text-primary leading-none">124</p>
+<p class="font-title-md text-title-md text-on-surface-variant mt-xs">Total Rides</p>
+</div>
+</div>
+<div class="glass-card p-lg rounded-xl flex flex-col custom-shadow">
+<div class="flex justify-between items-start">
+<span class="material-symbols-outlined text-secondary bg-secondary-container/30 p-2 rounded-lg">location_on</span>
+</div>
+<div class="mt-md">
+<p class="font-title-md text-title-md text-on-surface leading-tight">Financial District</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs uppercase tracking-widest">Favorite Destination</p>
+</div>
+<div class="mt-auto pt-sm">
+<div class="w-full h-16 rounded-lg overflow-hidden grayscale-[0.5] opacity-80">
+<img class="w-full h-full object-cover" data-alt="A stylized, minimalist map view of high-density urban streets in a metropolitan financial district. The map uses a sophisticated color scheme of light greys, muted blues, and clean white lines. The aesthetic is professional, clear, and highly functional, representing an advanced navigation tool for a premium ride-sharing service." data-location="New York Financial District" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBTKvsTIS-QeOKevdX5FX9U4H9k2xpYG4M01XNSpbo7FWGJmqaxPV6el_MwMXLlmWz2VOXyyhngzuXuNNmSGjbiEKhNSU-efDHGY-jwQ0d-_kPCSojb4hrqUej2LpMYqHvsckBEBahjlDffNFLVoL73rmITKvQT2hu2riGnRJfjnfyG645WN7l-JWI2hzpk24k0K8WsrrUuK4wUpvxsSBhnvYw4BK0AmCFRILu09V1qgHBAE_adbXXNGg">
+</div>
+</div>
+</div>
+</div>
+<!-- Action List -->
+<section class="space-y-sm mb-xl">
+<button class="w-full glass-card p-md rounded-xl flex items-center justify-between hover:bg-surface-container-low transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">history</span>
+<span class="font-title-md text-title-md text-on-surface">Ride History</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="w-full glass-card p-md rounded-xl flex items-center justify-between hover:bg-surface-container-low transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">credit_card</span>
+<span class="font-title-md text-title-md text-on-surface">Payment Methods</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+<button class="w-full glass-card p-md rounded-xl flex items-center justify-between hover:bg-surface-container-low transition-colors active:scale-[0.98]">
+<div class="flex items-center gap-md">
+<span class="material-symbols-outlined text-on-surface-variant">settings</span>
+<span class="font-title-md text-title-md text-on-surface">Settings</span>
+</div>
+<span class="material-symbols-outlined text-outline">chevron_right</span>
+</button>
+</section>
+<!-- Logout Button -->
+<a href="{{DATA:SCREEN:SCREEN_8}}" class="w-full h-touch-target bg-error-container text-on-error-container font-title-md text-title-md rounded-lg flex items-center justify-center gap-sm transition-transform active:scale-95 mb-lg"><span class="material-symbols-outlined">logout</span>Logout</a>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/80 dark:bg-on-surface/80 backdrop-blur-xl border-t border-white/10 shadow-[0_-4px_20px_0_rgba(0,0,0,0.04)] flex justify-around items-center px-margin-mobile pb-xs pt-xs"><a class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all duration-150 active:scale-98" href="{{DATA:SCREEN:SCREEN_7}}"><span class="material-symbols-outlined">home</span><span class="font-label-sm text-label-sm">Home</span></a><a class="flex flex-col items-center justify-center bg-primary text-on-primary rounded-full w-16 h-16 -mt-8 shadow-lg transition-all duration-150 active:scale-95" href="#"><span class="material-symbols-outlined text-[32px]">qr_code_scanner</span></a><a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-lg py-xs transition-all duration-150 active:scale-98" href="{{DATA:SCREEN:SCREEN_11}}"><span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span><span class="font-label-sm text-label-sm">Profile</span></a></nav>
+<script>
+        // Simple ripple-like effect on stats cards or buttons
+        document.querySelectorAll('button, .glass-card').forEach(button => {
+            button.addEventListener('touchstart', function() {
+                this.classList.add('opacity-70');
+            });
+            button.addEventListener('touchend', function() {
+                this.classList.remove('opacity-70');
+            });
+        });
+    </script>
+
+
+</body></html>

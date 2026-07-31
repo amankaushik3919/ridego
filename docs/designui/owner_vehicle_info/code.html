@@ -1,0 +1,192 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#191c1e",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-variant": "#e1e2e4",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "surface-dim": "#d9dadc",
+                    "surface-tint": "#0053db",
+                    "on-background": "#191c1e",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#00714d",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-primary": "#ffffff",
+                    "secondary": "#006c49",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "inverse-surface": "#2e3132",
+                    "on-secondary-fixed": "#002113",
+                    "surface-bright": "#f8f9fb",
+                    "secondary-container": "#6cf8bb",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#996100",
+                    "outline": "#737686",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-primary-fixed": "#00174b",
+                    "primary-fixed": "#dbe1ff",
+                    "surface-container": "#edeef0",
+                    "on-tertiary-container": "#ffeedd",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-highest": "#e1e2e4",
+                    "surface-container-high": "#e7e8ea",
+                    "surface-container-low": "#f3f4f6",
+                    "on-surface-variant": "#434655",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "background": "#f8f9fb",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#b4c5ff",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f0f1f3",
+                    "on-primary-container": "#eeefff",
+                    "primary-container": "#2563eb",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#784b00",
+                    "surface": "#f8f9fb",
+                    "primary": "#004ac6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "20px": "20px",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "md": "16px",
+                    "margin-mobile": "20px",
+                    "lg": "24px",
+                    "touch-target": "48px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "sm": "12px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .input-focus-ring:focus-within {
+            box-shadow: 0 0 0 2px #004ac6;
+        }
+        /* Custom curve for buttons as per prompt */
+        .rounded-20 { border-radius: 20px; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- Top App Bar (Shared Component Logic) -->
+<header class="w-full top-0 sticky z-40 bg-surface dark:bg-on-surface flex justify-between items-center px-margin-mobile h-touch-target">
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-surface-container-low transition-colors rounded-full p-xs scale-95 active:scale-90 transition-transform">arrow_back</button>
+<h1 class="font-title-md text-title-md text-primary dark:text-primary-fixed-dim">Vehicle Info</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border border-outline-variant">
+<img class="w-full h-full object-cover" data-alt="A clean, professional headshot of a modern urban mobility business owner in a bright, minimalist setting. The person is smiling confidently, wearing a sleek navy blue polo shirt. The background is a soft, out-of-focus modern office with high-key white lighting and subtle blue accents, maintaining a premium and dependable brand personality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1bFqijpLVax4swhzD6dD1kIjcT8HlyZgnjZJEeU-24rJSO3YP5dGeXxQu4PP1wo-23V_JTq29l_0Ux5sPFc-fpNXJNyf73luT-LtV4gf13P0hiJbIYd5Cw0BMyGAsF0uyGere2yHdbmvnRuglpx99_-6iq5ZMemOJvaQchGUdAh5m1npmhwp0N90ezcG_Qu6PpEobMGzqSv_CDKQ6Tm2Bz60CKZNiqnowngBjzenO0pQ-q7RBofpRpw">
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col px-margin-mobile pt-lg pb-xl max-w-lg mx-auto w-full">
+<!-- Illustration/Decorative Section -->
+<section class="mb-xl text-center">
+<div class="relative h-48 w-full rounded-20 bg-surface-container-low overflow-hidden flex items-center justify-center border border-outline-variant/30 mb-md">
+
+<div class="relative z-10 flex flex-col items-center">
+<span class="material-symbols-outlined text-[64px] text-primary" style="font-variation-settings: 'FILL' 1;">directions_car</span>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-xs tracking-widest uppercase">Registry details</p>
+</div>
+</div>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface">Vehicle Registration</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-xs px-md">Enter your official vehicle number plate details to link this asset to your profile.</p>
+</section>
+<!-- Form Section -->
+<section class="flex-1 space-y-lg">
+<!-- Vehicle Number Input -->
+<div class="space-y-xs group">
+<label class="font-label-sm text-label-sm text-outline ml-xs" for="vehicle_number">Vehicle Number</label>
+<div class="relative flex items-center rounded-20 p-xs transition-all duration-300 border-2 border-transparent focus-within:border-primary focus-within:bg-surface-lowest shadow-sm bg-secondary"><div class="w-12 h-12 flex items-center justify-center text-on-primary"><span class="material-symbols-outlined">license</span></div><input class="flex-1 bg-transparent border-none focus:ring-0 text-title-md font-bold text-on-primary placeholder:text-on-primary/50 uppercase tracking-widest" id="vehicle_number" placeholder="DL01AB1234" type="text"><button class="material-symbols-outlined text-on-primary/70 hover:text-on-primary mr-xs transition-colors" onclick="document.getElementById('vehicle_number').value = ''">cancel</button></div>
+<p class="font-body-md text-[12px] text-on-surface-variant/70 ml-xs italic">Format: State Code + District + Series + Number</p>
+</div>
+<!-- Contextual Info Card (Glassmorphic Accent) -->
+<div class="flex items-center gap-md p-md"><input type="checkbox" id="verify_consent" class="w-6 h-6 rounded border-outline-variant text-primary focus:ring-primary"><label for="verify_consent" class="font-body-md text-on-surface-variant">aapka save kiya jayega deteils for verify</label></div>
+</section>
+<!-- Bottom Action -->
+<section class="mt-xl pb-xl">
+<button class="w-full h-14 bg-primary text-on-primary rounded-20 font-title-md flex items-center justify-center gap-xs shadow-lg shadow-primary/20 hover:bg-primary-container transition-all active:scale-[0.98]" onclick="window.location.href='{{DATA:SCREEN:SCREEN_10}}'">
+<span class="">Save Vehicle Details</span>
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+
+</section>
+</main>
+<!-- Bottom Nav Bar (Shared Component Logic) -->
+<!-- Determined active navigation: None specifically for a focused form page, but UI shell persists -->
+
+<script>
+        // Simple input formatting interaction
+        const input = document.getElementById('vehicle_number');
+        input.addEventListener('input', (e) => {
+            let val = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            // Limit to standard plate length roughly
+            if(val.length > 10) val = val.substring(0, 10);
+            e.target.value = val;
+        });
+
+        // Add visual feedback for "Save"
+        document.querySelector('button.bg-primary').addEventListener('click', function() {
+            this.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span><span>Saving...</span>';
+            setTimeout(() => {
+                this.innerHTML = '<span class="material-symbols-outlined">check_circle</span><span>Details Saved</span>';
+                this.classList.replace('bg-primary', 'bg-secondary');
+            }, 1200);
+        });
+    </script>
+
+
+</body></html>

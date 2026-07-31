@@ -1,0 +1,312 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#784b00",
+                    "secondary-fixed-dim": "#4edea3",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-secondary-fixed": "#002113",
+                    "on-primary": "#ffffff",
+                    "inverse-primary": "#b4c5ff",
+                    "surface-container-high": "#e7e8ea",
+                    "surface-container-highest": "#e1e2e4",
+                    "secondary-container": "#6cf8bb",
+                    "surface": "#f8f9fb",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "background": "#f8f9fb",
+                    "inverse-on-surface": "#f0f1f3",
+                    "primary": "#004ac6",
+                    "primary-container": "#2563eb",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-secondary-fixed-variant": "#005236",
+                    "surface-container": "#edeef0",
+                    "on-primary-fixed": "#00174b",
+                    "surface-tint": "#0053db",
+                    "outline-variant": "#c3c6d7",
+                    "on-background": "#191c1e",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-secondary-container": "#00714d",
+                    "on-error-container": "#93000a",
+                    "on-surface-variant": "#434655",
+                    "on-error": "#ffffff",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-variant": "#e1e2e4",
+                    "surface-container-low": "#f3f4f6",
+                    "on-tertiary-container": "#ffeedd",
+                    "tertiary-container": "#996100",
+                    "on-surface": "#191c1e",
+                    "inverse-surface": "#2e3132",
+                    "on-primary-container": "#eeefff",
+                    "outline": "#737686",
+                    "primary-fixed": "#dbe1ff",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "touch-target": "48px",
+                    "margin-mobile": "20px",
+                    "sm": "12px",
+                    "lg": "24px",
+                    "gutter": "16px",
+                    "base": "4px",
+                    "xs": "8px",
+                    "xl": "32px",
+                    "md": "16px"
+            },
+            "fontFamily": {
+                    "label-sm": ["Inter"],
+                    "body-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            backdrop-filter: blur(12px);
+            background: rgba(255, 255, 255, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .bento-card {
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+            border: 1px solid #E5E7EB;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface text-on-surface antialiased min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="w-full top-0 sticky z-40 bg-surface flex justify-between items-center px-margin-mobile h-touch-target">
+<div class="flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a smiling South Asian man named Arjun, looking confident and friendly. The lighting is soft and warm, suggesting a high-end lifestyle photography style. The background is a blurred urban office environment with neutral tones and blue accents that match the Ride Connect brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCGVbTQ2XmeX6SgvJTL6cwP8sYHR9MG-h_bz582QkRaga94JKDHbDsp7zzveaMdK6uhD1zmqAb-O3oPamsAeDCk5OvwJmo_XtkzafT3T4Z29NmJ9xF0SANKHLXuBp8QBzFRLYj15GAON2yo5O_k4UeUTaDyQDYkZDfSLrpjA4yA_7yGZDjjv0g5KFr0raN9Zuo37ABFCgVlrUb4z-zAfhU1VryBTUHHa5RaVCq__qbSaFfBmBjsxIqU1QdD19nQHADk0p33zhQ0MBhu">
+</div>
+<h1 class="font-title-md text-title-md text-on-surface">Hello, Arjun</h1>
+</div>
+<button class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-on-surface-variant">notifications</span>
+</button>
+</header>
+<main class="px-margin-mobile py-md space-y-lg">
+<!-- Search / Destination Selection (Prominent) -->
+<section class="relative">
+<div class="flex flex-col gap-xs">
+<label class="font-label-sm text-label-sm text-on-surface-variant ml-1">Where are you going?</label>
+<div class="relative group">
+<div class="absolute left-md top-1/2 -translate-y-1/2 pointer-events-none">
+<span class="material-symbols-outlined text-primary">location_on</span>
+</div>
+<input class="w-full h-14 pl-12 pr-4 bg-surface-container-low border-0 rounded-xl font-body-lg text-body-lg focus:ring-2 focus:ring-primary-container transition-all" placeholder="Select Destination" readonly="" type="text">
+<div class="absolute right-md top-1/2 -translate-y-1/2">
+<span class="material-symbols-outlined text-outline">expand_more</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Active Ride Section (Conditional) -->
+<section class="animate-in fade-in slide-in-from-bottom-4 duration-500">
+<div class="bg-primary-container text-on-primary-container p-lg rounded-xl flex flex-col gap-md relative overflow-hidden bento-card">
+<!-- Atmospheric background element -->
+<div class="absolute -right-8 -top-8 w-32 h-32 bg-white/10 rounded-full blur-3xl"></div>
+<div class="flex justify-between items-start">
+<div>
+<span class="font-label-sm text-label-sm opacity-80 uppercase tracking-widest">Active Ride</span>
+<h2 class="font-headline-lg-mobile text-headline-lg-mobile mt-xs">DL01AB1234</h2>
+</div>
+<span class="bg-white/20 px-sm py-xs rounded-full font-label-sm text-label-sm backdrop-blur-md flex items-center gap-xs">
+<span class="w-2 h-2 rounded-full bg-secondary-fixed-dim animate-pulse"></span>
+                        In Progress
+                    </span>
+</div>
+<div class="flex items-center gap-md pt-xs">
+<div class="flex flex-col items-center gap-1">
+<div class="w-2 h-2 rounded-full bg-on-primary-container"></div>
+<div class="w-[1px] h-6 border-l border-dashed border-on-primary-container/40"></div>
+<div class="w-2 h-2 rounded-full bg-secondary-fixed-dim"></div>
+</div>
+<div class="flex flex-col gap-sm">
+<p class="font-body-md text-body-md opacity-70">Current Location • Sector 21</p>
+<p class="font-title-md text-title-md">Noida City Center</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Available Rickshaws Bento Section -->
+<section class="space-y-md">
+<div class="flex justify-between items-end">
+<h3 class="font-title-md text-title-md text-on-surface">Available Nearby</h3>
+<button class="font-label-sm text-label-sm text-primary font-bold">View Map</button>
+</div>
+<div class="grid grid-cols-1 gap-md">
+<!-- Vehicle Card 1 -->
+<div class="bg-surface-container-low p-md rounded-xl bento-card flex items-center justify-between group active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-[32px]">electric_rickshaw</span>
+</div>
+<div>
+<div class="flex items-center gap-xs">
+<span class="font-title-md text-title-md">UP16CT0091</span>
+<span class="material-symbols-outlined text-secondary text-body-md" style="font-variation-settings: 'FILL' 1;">verified</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant">To: Metro Station</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-error font-bold bg-error-container/20 px-xs py-1 rounded-full">2 Seats Left</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">200m away</p>
+</div>
+</div>
+<!-- Vehicle Card 2 -->
+<div class="bg-surface-container-low p-md rounded-xl bento-card flex items-center justify-between active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-[32px]">electric_rickshaw</span>
+</div>
+<div>
+<span class="font-title-md text-title-md">DL02RT4432</span>
+<p class="font-body-md text-body-md text-on-surface-variant">To: Mall of India</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-secondary font-bold bg-secondary-container/20 px-xs py-1 rounded-full">Full Empty</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">450m away</p>
+</div>
+</div>
+<!-- Vehicle Card 3 -->
+<div class="bg-surface-container-low p-md rounded-xl bento-card flex items-center justify-between active:scale-[0.98] transition-transform">
+<div class="flex items-center gap-md">
+<div class="w-12 h-12 bg-white rounded-lg flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary text-[32px]">electric_rickshaw</span>
+</div>
+<div>
+<span class="font-title-md text-title-md">UP16CX5501</span>
+<p class="font-body-md text-body-md text-on-surface-variant">To: Botanical Garden</p>
+</div>
+</div>
+<div class="text-right">
+<p class="font-label-sm text-label-sm text-error font-bold bg-error-container/20 px-xs py-1 rounded-full">1 Seat Left</p>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">1.2km away</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Map Snippet (Universal Design: Visual Context) -->
+<section class="h-48 rounded-2xl overflow-hidden relative border border-outline-variant">
+<div class="absolute inset-0 bg-cover bg-center" data-location="Noida Sector 62" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDsDqvYKvV3TyUSRlHt0ShzEWfMFomRsaC5Hzn8ksVsUuNlxBIbw9wCYAd_HmIGGnGBYyEa4n0oJuWnIpWmWgCj5TDflbUhTsQLdWP1Hbz083YqPRbDOpBp9iZPgM3Q0QJPcaF3_n_4cC1Co7OYrSE988kC2ABCyLoNcFvtccxaFIO3ez1U99GFzhi9T69KIdxQoJ4V439Vyc-9IWKYCRYAx2m3vYcLjMGnZ2EDFXJBKoTODRF3n3Itq_P0kYHOZ7EHxaoSgc5gGX76')"></div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"></div>
+<div class="absolute bottom-md left-md bg-white p-xs rounded-lg shadow-lg flex items-center gap-xs">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">my_location</span>
+<span class="font-label-sm text-label-sm text-on-surface">Tracking 12 nearby rickshaws</span>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl glass-nav shadow-[0_-4px_20px_0_rgba(0,0,0,0.04)] backdrop-blur-xl">
+<div class="flex justify-around items-center px-margin-mobile pb-xs pt-xs h-20 relative">
+<!-- Home -->
+<button class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-lg py-xs transition-all duration-150 active:scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm mt-1">Home</span>
+</button>
+<!-- Center Scan FAB -->
+<div class="absolute -top-8 left-1/2 -translate-x-1/2">
+<button class="w-20 h-20 bg-primary shadow-xl shadow-primary/30 rounded-full flex flex-col items-center justify-center text-white ring-4 ring-surface active:scale-90 transition-transform" id="scan-button">
+<span class="material-symbols-outlined text-[32px]">qr_code_scanner</span>
+<span class="font-label-sm text-[10px] uppercase font-bold tracking-tighter mt-1">Scan</span>
+</button>
+</div>
+<div class="w-20"></div><!-- Spacer for FAB -->
+<!-- Profile -->
+<button class="flex flex-col items-center justify-center text-on-surface-variant hover:opacity-80 transition-all active:scale-95">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm mt-1">Profile</span>
+</button>
+</div>
+<!-- Safe area padding for iPhones -->
+<div class="h-6 w-full"></div>
+</nav>
+<script>
+        // Micro-interactions
+        document.getElementById('scan-button').addEventListener('click', function() {
+            // Simulate feedback
+            this.classList.add('scale-90');
+            setTimeout(() => {
+                this.classList.remove('scale-90');
+                // Potential redirect or modal logic
+                console.log('Initiating Scan...');
+            }, 100);
+        });
+
+        // Add subtle parallax/scroll effects
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 20) {
+                header.classList.add('shadow-sm');
+                header.classList.add('bg-white/90');
+                header.classList.add('backdrop-blur-md');
+            } else {
+                header.classList.remove('shadow-sm');
+                header.classList.remove('bg-white/90');
+                header.classList.remove('backdrop-blur-md');
+            }
+        });
+
+        // Universal Design: High Contrast Focus
+        const interactiveElements = document.querySelectorAll('button, input');
+        interactiveElements.forEach(el => {
+            el.addEventListener('focus', () => {
+                el.style.outline = '3px solid #004ac6';
+                el.style.outlineOffset = '2px';
+            });
+            el.addEventListener('blur', () => {
+                el.style.outline = 'none';
+            });
+        });
+    </script>
+</body></html>

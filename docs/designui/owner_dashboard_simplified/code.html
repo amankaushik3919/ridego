@@ -1,0 +1,205 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Ride Connect - Today's Riders</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-surface": "#191c1e",
+                    "secondary-fixed": "#6ffbbe",
+                    "surface-variant": "#e1e2e4",
+                    "on-primary-fixed-variant": "#003ea8",
+                    "surface-dim": "#d9dadc",
+                    "surface-tint": "#0053db",
+                    "on-background": "#191c1e",
+                    "error": "#ba1a1a",
+                    "on-secondary-container": "#00714d",
+                    "secondary-fixed-dim": "#4edea3",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-primary": "#ffffff",
+                    "secondary": "#006c49",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "inverse-surface": "#2e3132",
+                    "on-secondary-fixed": "#002113",
+                    "surface-bright": "#f8f9fb",
+                    "secondary-container": "#6cf8bb",
+                    "on-tertiary": "#ffffff",
+                    "tertiary-container": "#996100",
+                    "outline": "#737686",
+                    "on-secondary-fixed-variant": "#005236",
+                    "on-primary-fixed": "#00174b",
+                    "primary-fixed": "#dbe1ff",
+                    "surface-container": "#edeef0",
+                    "on-tertiary-container": "#ffeedd",
+                    "outline-variant": "#c3c6d7",
+                    "surface-container-highest": "#e1e2e4",
+                    "surface-container-high": "#e7e8ea",
+                    "surface-container-low": "#f3f4f6",
+                    "on-surface-variant": "#434655",
+                    "primary-fixed-dim": "#b4c5ff",
+                    "on-error": "#ffffff",
+                    "on-error-container": "#93000a",
+                    "background": "#f8f9fb",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#b4c5ff",
+                    "error-container": "#ffdad6",
+                    "inverse-on-surface": "#f0f1f3",
+                    "on-primary-container": "#eeefff",
+                    "primary-container": "#2563eb",
+                    "on-secondary": "#ffffff",
+                    "tertiary": "#784b00",
+                    "surface": "#f8f9fb",
+                    "primary": "#004ac6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "xs": "8px",
+                    "md": "16px",
+                    "margin-mobile": "20px",
+                    "lg": "24px",
+                    "touch-target": "48px",
+                    "xl": "32px",
+                    "base": "4px",
+                    "sm": "12px",
+                    "gutter": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "body-md": ["Inter"],
+                    "label-sm": ["Inter"],
+                    "display-lg": ["Inter"]
+            },
+            "fontSize": {
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "title-md": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.04);
+        }
+        .active-glow {
+            box-shadow: 0 0 15px rgba(0, 74, 198, 0.1);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-surface text-on-surface min-h-screen pb-24">
+<!-- Top AppBar (Generated from JSON guidance) -->
+<header class="w-full top-0 sticky z-50 bg-surface dark:bg-on-surface flex justify-between items-center px-margin-mobile h-touch-target">
+<div class="flex items-center gap-sm transition-transform scale-95 active:scale-90 duration-150">
+<div class="w-8 h-8 rounded-full overflow-hidden border-2 border-primary-container">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a smiling car owner, high-quality photography, soft studio lighting, blurred modern office background, clean corporate aesthetic with a blue and white color scheme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApS5ElpvUYjDP36ZCT8kU-N6KHJVuxT8fWq1cv9RyeDe9wgJpzCkUJLXcordZfqtz3oM_WyjI_FF0CUbTOFOJVJk2gcvHbfW-vnR46XdpuUorcjSZUlVL1v5IlLo5HZUCX9IRBRbYHaDYuL-SOqD1nTmsI8uJ41hzLHJT5nwhDuGpPQrOEli8JRkS9ZLe-zZ9MVca1ag9q30-10bszCj6DcHVIMk5ZgbAGLG6BbAyfSBOOTVSEo6Wxuw">
+</div>
+<span class="font-headline-lg-mobile text-headline-lg-mobile text-primary dark:text-primary-fixed-dim">Ride Connect</span>
+</div>
+<button class="material-symbols-outlined text-primary dark:text-primary-fixed-dim hover:bg-surface-container-low transition-colors p-xs rounded-full">
+            notifications
+        </button>
+</header>
+<main class="px-margin-mobile pt-lg">
+<!-- Dashboard Greeting -->
+<section class="mb-xl">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs">Today's Riders</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">You have 4 scheduled pickups for today, Jan 24.</p>
+</section>
+<!-- Stats Bento Grid -->
+<section class="grid grid-cols-2 gap-md mb-xl">
+<div class="glass-card p-md rounded-xl flex flex-col gap-xs">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">TOTAL RIDERS</span>
+<span class="font-title-md text-title-md text-on-surface">04</span>
+</div>
+<div class="glass-card p-md rounded-xl flex flex-col gap-xs">
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">route</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant">EST. REVENUE</span>
+<span class="font-title-md text-title-md text-on-surface">₹420</span>
+</div>
+</section>
+<!-- Riders List -->
+<div class="space-y-md">
+<!-- Rider Card: Rahul -->
+<div class="glass-card rounded-xl p-md flex items-center gap-md transition-all duration-150 active:scale-98 hover:shadow-lg border-l-4 border-l-primary"><div class="flex-1 flex justify-between items-center">
+<h3 class="font-title-md text-title-md text-on-surface">Rahul</h3>
+<span class="font-label-sm text-label-sm text-primary font-bold">09:15 AM</span>
+</div></div>
+<!-- Rider Card: Ankit -->
+<div class="glass-card rounded-xl p-md flex items-center gap-md transition-all duration-150 active:scale-98 hover:shadow-lg border-l-4 border-l-secondary"><div class="flex-1 flex justify-between items-center">
+<h3 class="font-title-md text-title-md text-on-surface">Ankit</h3>
+<span class="font-label-sm text-label-sm text-primary font-bold">09:22 AM</span>
+</div></div>
+<!-- Rider Card: Priya (Extra for list depth) -->
+<div class="glass-card rounded-xl p-md flex items-center gap-md transition-all duration-150 active:scale-98 hover:shadow-lg border-l-4 border-l-tertiary"><div class="flex-1 flex justify-between items-center">
+<h3 class="font-title-md text-title-md text-on-surface">Priya</h3>
+<span class="font-label-sm text-label-sm text-primary font-bold">09:45 AM</span>
+</div></div>
+<!-- Rider Card: Sameer (Extra for list depth) -->
+<div class="glass-card rounded-xl p-md flex items-center gap-md transition-all duration-150 active:scale-98 hover:shadow-lg border-l-4 border-l-outline"><div class="flex-1 flex justify-between items-center">
+<h3 class="font-title-md text-title-md text-on-surface">Sameer</h3>
+<span class="font-label-sm text-label-sm text-primary font-bold">10:10 AM</span>
+</div></div>
+</div>
+<!-- Floating Action Button (As per prompt context) -->
+<button class="fixed right-lg bottom-32 bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-transform active:scale-90 z-40">
+<span class="material-symbols-outlined">add</span>
+</button>
+</main>
+<!-- Bottom Navigation Bar (Mandatory Shared Component Implementation) -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-xl bg-surface/80 dark:bg-on-surface/80 backdrop-blur-xl border-t border-white/10 shadow-[0_-4px_20px_0_rgba(0,0,0,0.04)] flex justify-around items-center px-margin-mobile pb-xs pt-xs"><!-- Home (Active) -->
+<a class="flex flex-col items-center justify-center bg-primary-container text-on-primary-container rounded-full px-lg py-xs transition-all duration-150 active:scale-98 hover:opacity-80" href="{{DATA:SCREEN:SCREEN_10}}">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">home</span>
+<span class="font-label-sm text-label-sm">Home</span>
+</a>
+<!-- Jobs (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-all duration-150 active:scale-98 hover:opacity-80" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="font-label-sm text-label-sm">Jobs</span>
+</a>
+<!-- Profile (Inactive) -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant transition-all duration-150 active:scale-98 hover:opacity-80" href="{{DATA:SCREEN:SCREEN_9}}">
+<span class="material-symbols-outlined">person</span>
+<span class="font-label-sm text-label-sm">Profile</span>
+</a></nav>
+<script>
+        // Micro-interaction for list items
+        document.querySelectorAll('.glass-card').forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.add('active-glow');
+                setTimeout(() => this.classList.remove('active-glow'), 300);
+            });
+        });
+    </script>
+</body></html>
