@@ -98,7 +98,7 @@ export function DriverRides() {
       navigator.geolocation.getCurrentPosition(
         (pos) =>
           resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
-        () => reject(new Error("Location permission denied.")),
+        () => reject(new Error("Location denied, Please allow location.")),
         { enableHighAccuracy: true, timeout: 10000 },
       );
     });
