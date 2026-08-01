@@ -517,6 +517,7 @@ export function DriverRides() {
 
             {qrImageDataUrl ? (
               <div className="rounded-2xl bg-white p-4 shadow-md">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={qrImageDataUrl} alt="Ride QR" className="h-52 w-52" />
               </div>
             ) : (

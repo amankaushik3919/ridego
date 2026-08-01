@@ -78,6 +78,7 @@ export default function RootLayout({
       className={`${inter.variable} h-full antialiased`}
     >
       <head>
+        {/* eslint-disable-next-line @next/next/no-page-custom-font */}
         <link
           href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap"
           rel="stylesheet"

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 import Link from "next/link";
-import { Search, ShieldX, ShieldCheck, ChevronDown } from "lucide-react";
+import { Search, ShieldX, ShieldCheck } from "lucide-react";
 import { adminApi, DriverSummary } from "@/lib/api/admin";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -45,9 +45,17 @@ import {
 import { toast } from "sonner";
 import { getErrorMessage } from "@/lib/utils";
 
-function StatusBadge({ isOnline, isActive }: { isOnline: boolean; isActive: boolean }) {
-  if (!isActive) return <Badge className="bg-red-500 text-white">Blocked</Badge>;
-  if (isOnline) return <Badge className="bg-emerald-500 text-white">Online</Badge>;
+function StatusBadge({
+  isOnline,
+  isActive,
+}: {
+  isOnline: boolean;
+  isActive: boolean;
+}) {
+  if (!isActive)
+    return <Badge className="bg-red-500 text-white">Blocked</Badge>;
+  if (isOnline)
+    return <Badge className="bg-emerald-500 text-white">Online</Badge>;
   return <Badge variant="secondary">Offline</Badge>;
 }
 
@@ -86,7 +94,10 @@ export default function AdminDriversPage() {
   const startItem = (page - 1) * limit + 1;
   const endItem = Math.min(page * limit, total);
 
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1).slice(0, 5);
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1).slice(
+    0,
+    5,
+  );
 
   const confirmBlock = async () => {
     if (!pendingBlock) return;
@@ -136,7 +147,10 @@ export default function AdminDriversPage() {
       {loading ? (
         <div className="space-y-2">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-16 rounded-xl bg-muted-foreground/20" />
+            <Skeleton
+              key={i}
+              className="h-16 rounded-xl bg-muted-foreground/20"
+            />
           ))}
         </div>
       ) : items.length === 0 ? (
@@ -167,7 +181,9 @@ export default function AdminDriversPage() {
                     <TableRow key={d.driverId} className="hover:bg-muted/40">
                       <TableCell>
                         <div className="font-medium">{d.name ?? d.phone}</div>
-                        <div className="text-xs text-muted-foreground">{d.phone}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {d.phone}
+                        </div>
                       </TableCell>
                       <TableCell>
                         <div className="font-medium">{d.vehicleNumber}</div>
@@ -176,24 +192,37 @@ export default function AdminDriversPage() {
                         </div>
                       </TableCell>
                       <TableCell>
-                        <StatusBadge isOnline={d.isOnline} isActive={d.isActive} />
+                        <StatusBadge
+                          isOnline={d.isOnline}
+                          isActive={d.isActive}
+                        />
                       </TableCell>
                       <TableCell className="text-right">
                         {d.today.rides} rides · ₹{d.today.revenue}
                       </TableCell>
-                      <TableCell className="text-right">{d.total.rides}</TableCell>
-                      <TableCell className="text-right">₹{d.total.revenue}</TableCell>
+                      <TableCell className="text-right">
+                        {d.total.rides}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        ₹{d.total.revenue}
+                      </TableCell>
                       <TableCell className="text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Button variant="outline" size="sm" asChild>
-                            <Link href={`/admin/drivers/${d.driverId}`}>View</Link>
+                            <Link href={`/admin/drivers/${d.driverId}`}>
+                              View
+                            </Link>
                           </Button>
                           <Button
                             variant={d.isActive ? "destructive" : "default"}
                             size="sm"
                             onClick={() => setPendingBlock(d)}
                           >
-                            {d.isActive ? <ShieldX className="size-4" /> : <ShieldCheck className="size-4" />}
+                            {d.isActive ? (
+                              <ShieldX className="size-4" />
+                            ) : (
+                              <ShieldCheck className="size-4" />
+                            )}
                           </Button>
                         </div>
                       </TableCell>
@@ -212,7 +241,9 @@ export default function AdminDriversPage() {
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="font-medium">{d.name ?? d.phone}</div>
-                      <div className="text-xs text-muted-foreground">{d.phone}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {d.phone}
+                      </div>
                     </div>
                     <StatusBadge isOnline={d.isOnline} isActive={d.isActive} />
                   </div>
@@ -231,7 +262,12 @@ export default function AdminDriversPage() {
                     </div>
                   </div>
                   <div className="mt-3 flex gap-2">
-                    <Button variant="outline" size="sm" className="flex-1" asChild>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="flex-1"
+                      asChild
+                    >
                       <Link href={`/admin/drivers/${d.driverId}`}>View</Link>
                     </Button>
                     <Button
@@ -263,9 +299,8 @@ export default function AdminDriversPage() {
                   setPage(1);
                 }}
               >
-                <SelectTrigger className="h-8 w-[70px] gap-1 text-xs">
+                <SelectTrigger className="h-8 w-17.5 gap-1 text-xs">
                   <SelectValue />
-                  <ChevronDown className="size-3" />
                 </SelectTrigger>
                 <SelectContent>
                   {PAGE_SIZES.map((s) => (
@@ -288,7 +323,9 @@ export default function AdminDriversPage() {
                         e.preventDefault();
                         if (page > 1) setPage(page - 1);
                       }}
-                      className={page <= 1 ? "pointer-events-none opacity-50" : ""}
+                      className={
+                        page <= 1 ? "pointer-events-none opacity-50" : ""
+                      }
                     />
                   </PaginationItem>
                   {pageNumbers.map((p) => (
@@ -312,7 +349,11 @@ export default function AdminDriversPage() {
                         e.preventDefault();
                         if (page < totalPages) setPage(page + 1);
                       }}
-                      className={page >= totalPages ? "pointer-events-none opacity-50" : ""}
+                      className={
+                        page >= totalPages
+                          ? "pointer-events-none opacity-50"
+                          : ""
+                      }
                     />
                   </PaginationItem>
                 </PaginationContent>
@@ -323,11 +364,16 @@ export default function AdminDriversPage() {
       )}
 
       {/* Block/unblock confirm */}
-      <AlertDialog open={!!pendingBlock} onOpenChange={(v) => !v && setPendingBlock(null)}>
+      <AlertDialog
+        open={!!pendingBlock}
+        onOpenChange={(v) => !v && setPendingBlock(null)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {pendingBlock?.isActive ? "Block this driver?" : "Unblock this driver?"}
+              {pendingBlock?.isActive
+                ? "Block this driver?"
+                : "Unblock this driver?"}
             </AlertDialogTitle>
             <AlertDialogDescription>
               {pendingBlock?.isActive
@@ -343,7 +389,11 @@ export default function AdminDriversPage() {
                 void confirmBlock();
               }}
               disabled={blocking}
-              className={pendingBlock?.isActive ? "bg-red-500 text-white hover:bg-red-600" : ""}
+              className={
+                pendingBlock?.isActive
+                  ? "bg-red-500 text-white hover:bg-red-600"
+                  : ""
+              }
             >
               {blocking
                 ? "Processing..."

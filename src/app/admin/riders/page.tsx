@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { Search, ShieldX, ShieldCheck, ChevronDown } from "lucide-react";
+import { Search, ShieldX, ShieldCheck } from "lucide-react";
 import { adminApi, RiderSummary } from "@/lib/api/admin";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -78,7 +78,10 @@ export default function AdminRidersPage() {
   const totalPages = Math.max(1, Math.ceil(total / limit));
   const startItem = (page - 1) * limit + 1;
   const endItem = Math.min(page * limit, total);
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1).slice(0, 5);
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1).slice(
+    0,
+    5,
+  );
 
   const formatDate = (iso: string) =>
     new Date(iso).toLocaleDateString("en-IN", {
@@ -134,7 +137,10 @@ export default function AdminRidersPage() {
       {loading ? (
         <div className="space-y-2">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-16 rounded-xl bg-muted-foreground/20" />
+            <Skeleton
+              key={i}
+              className="h-16 rounded-xl bg-muted-foreground/20"
+            />
           ))}
         </div>
       ) : items.length === 0 ? (
@@ -163,7 +169,9 @@ export default function AdminRidersPage() {
                     <TableRow key={r.userId} className="hover:bg-muted/40">
                       <TableCell>
                         <div className="font-medium">{r.name ?? r.phone}</div>
-                        <div className="text-xs text-muted-foreground">{r.phone}</div>
+                        <div className="text-xs text-muted-foreground">
+                          {r.phone}
+                        </div>
                       </TableCell>
                       <TableCell className="text-muted-foreground">
                         {formatDate(r.createdAt)}
@@ -173,9 +181,13 @@ export default function AdminRidersPage() {
                       </TableCell>
                       <TableCell>
                         {r.isActive ? (
-                          <Badge className="bg-emerald-500 text-white">Active</Badge>
+                          <Badge className="bg-emerald-500 text-white">
+                            Active
+                          </Badge>
                         ) : (
-                          <Badge className="bg-red-500 text-white">Blocked</Badge>
+                          <Badge className="bg-red-500 text-white">
+                            Blocked
+                          </Badge>
                         )}
                       </TableCell>
                       <TableCell className="text-right">
@@ -184,7 +196,11 @@ export default function AdminRidersPage() {
                           size="sm"
                           onClick={() => setPendingBlock(r)}
                         >
-                          {r.isActive ? <ShieldX className="size-4" /> : <ShieldCheck className="size-4" />}
+                          {r.isActive ? (
+                            <ShieldX className="size-4" />
+                          ) : (
+                            <ShieldCheck className="size-4" />
+                          )}
                         </Button>
                       </TableCell>
                     </TableRow>
@@ -202,10 +218,14 @@ export default function AdminRidersPage() {
                   <div className="flex items-start justify-between">
                     <div>
                       <div className="font-medium">{r.name ?? r.phone}</div>
-                      <div className="text-xs text-muted-foreground">{r.phone}</div>
+                      <div className="text-xs text-muted-foreground">
+                        {r.phone}
+                      </div>
                     </div>
                     {r.isActive ? (
-                      <Badge className="bg-emerald-500 text-white">Active</Badge>
+                      <Badge className="bg-emerald-500 text-white">
+                        Active
+                      </Badge>
                     ) : (
                       <Badge className="bg-red-500 text-white">Blocked</Badge>
                     )}
@@ -216,7 +236,9 @@ export default function AdminRidersPage() {
                       <div className="text-muted-foreground">Total rides</div>
                     </div>
                     <div>
-                      <div className="font-semibold">{formatDate(r.createdAt)}</div>
+                      <div className="font-semibold">
+                        {formatDate(r.createdAt)}
+                      </div>
                       <div className="text-muted-foreground">Joined</div>
                     </div>
                   </div>
@@ -248,9 +270,8 @@ export default function AdminRidersPage() {
                   setPage(1);
                 }}
               >
-                <SelectTrigger className="h-8 w-[70px] gap-1 text-xs">
+                <SelectTrigger className="h-8 w-17.5 gap-1 text-xs">
                   <SelectValue />
-                  <ChevronDown className="size-3" />
                 </SelectTrigger>
                 <SelectContent>
                   {PAGE_SIZES.map((s) => (
@@ -273,7 +294,9 @@ export default function AdminRidersPage() {
                         e.preventDefault();
                         if (page > 1) setPage(page - 1);
                       }}
-                      className={page <= 1 ? "pointer-events-none opacity-50" : ""}
+                      className={
+                        page <= 1 ? "pointer-events-none opacity-50" : ""
+                      }
                     />
                   </PaginationItem>
                   {pageNumbers.map((p) => (
@@ -297,7 +320,11 @@ export default function AdminRidersPage() {
                         e.preventDefault();
                         if (page < totalPages) setPage(page + 1);
                       }}
-                      className={page >= totalPages ? "pointer-events-none opacity-50" : ""}
+                      className={
+                        page >= totalPages
+                          ? "pointer-events-none opacity-50"
+                          : ""
+                      }
                     />
                   </PaginationItem>
                 </PaginationContent>
@@ -308,11 +335,16 @@ export default function AdminRidersPage() {
       )}
 
       {/* Block/unblock confirm */}
-      <AlertDialog open={!!pendingBlock} onOpenChange={(v) => !v && setPendingBlock(null)}>
+      <AlertDialog
+        open={!!pendingBlock}
+        onOpenChange={(v) => !v && setPendingBlock(null)}
+      >
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {pendingBlock?.isActive ? "Block this rider?" : "Unblock this rider?"}
+              {pendingBlock?.isActive
+                ? "Block this rider?"
+                : "Unblock this rider?"}
             </AlertDialogTitle>
             <AlertDialogDescription>
               {pendingBlock?.isActive
@@ -328,7 +360,11 @@ export default function AdminRidersPage() {
                 void confirmBlock();
               }}
               disabled={blocking}
-              className={pendingBlock?.isActive ? "bg-red-500 text-white hover:bg-red-600" : ""}
+              className={
+                pendingBlock?.isActive
+                  ? "bg-red-500 text-white hover:bg-red-600"
+                  : ""
+              }
             >
               {blocking
                 ? "Processing..."
