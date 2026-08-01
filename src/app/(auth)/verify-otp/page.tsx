@@ -146,7 +146,7 @@ export default function VerifyOtpPage() {
             <ArrowLeft className="size-5" />
           </button>
           <span className="font-title-md text-title-md font-semibold text-primary">
-            Ride Connect
+            RideGo
           </span>
         </div>
         <button

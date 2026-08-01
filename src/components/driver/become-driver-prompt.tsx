@@ -16,7 +16,7 @@ export function BecomeDriverPrompt() {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Drive with RideConnect</CardTitle>
+        <CardTitle>Drive with RideGo</CardTitle>
         <CardDescription>
           E-rickshaw chalate ho? Apna profile complete karke driver banein aur
           riders paayein.

@@ -57,7 +57,7 @@ export default function OnboardingPage() {
     <div className="flex min-h-screen items-center justify-center bg-muted/30 px-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle>Welcome to RideConnect!</CardTitle>
+          <CardTitle>Welcome to RideGo!</CardTitle>
           <CardDescription>
             Aap kya karna chahte hain? Ye choice permanent hai, isliye sochkar
             select karein.

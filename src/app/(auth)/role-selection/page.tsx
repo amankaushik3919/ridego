@@ -92,7 +92,7 @@ export default function RoleSelectionPage() {
             <ArrowLeft className="size-5" />
           </button>
           <span className="font-title-md text-title-md font-semibold text-primary">
-            Ride Connect
+            RideGo
           </span>
         </div>
         <button
@@ -112,7 +112,7 @@ export default function RoleSelectionPage() {
             Choose your role
           </h1>
           <p className="font-body-lg mt-2 text-body-lg text-on-surface-variant">
-            Select how you want to use Ride Connect.
+            Select how you want to use RideGo.
           </p>
         </div>
 

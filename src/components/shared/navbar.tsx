@@ -26,7 +26,7 @@ export function Navbar() {
 
   return (
     <header className="flex items-center justify-between border-b px-6 py-3">
-      <span className="text-lg font-semibold">RideConnect</span>
+      <span className="text-lg font-semibold">RideGo</span>
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
