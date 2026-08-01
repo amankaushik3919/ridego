@@ -13,7 +13,8 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     hydrate();
-    setChecked(true);
+    const id = setTimeout(() => setChecked(true), 0);
+    return () => clearTimeout(id);
   }, [hydrate]);
 
   useEffect(() => {

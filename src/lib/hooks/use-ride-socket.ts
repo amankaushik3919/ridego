@@ -43,17 +43,27 @@ export function useRideSocket({
       });
     }
 
-    const handleSeatUpdate = (data: any) => {
+    const handleSeatUpdate = (data: {
+      sessionId: string;
+      availableSeats: number;
+    }) => {
       console.log("[socket] seatUpdate received:", data);
       if (data.sessionId === sessionId) onSeatUpdate?.(data);
     };
 
-    const handleSessionEnded = (data: any) => {
+    const handleSessionEnded = (data: {
+      sessionId: string;
+      reason: "COMPLETED" | "EXPIRED";
+    }) => {
       console.log("[socket] sessionEnded received:", data);
       if (data.sessionId === sessionId) onSessionEnded?.(data);
     };
 
-    const handleDriverLocation = (data: any) => {
+    const handleDriverLocation = (data: {
+      sessionId: string;
+      lat: number;
+      lng: number;
+    }) => {
       if (data.sessionId === sessionId) onDriverLocation?.(data);
     };
 

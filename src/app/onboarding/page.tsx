@@ -13,6 +13,7 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/utils";
 
 export default function OnboardingPage() {
   const router = useRouter();
@@ -45,8 +46,8 @@ export default function OnboardingPage() {
       } else {
         router.push("/dashboard");
       }
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || "Failed to set role.");
+    } catch (err: unknown) {
+      toast.error(getErrorMessage(err, "Failed to set role."));
     } finally {
       setLoading(false);
     }

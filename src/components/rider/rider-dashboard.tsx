@@ -7,11 +7,13 @@ import { NearbyList } from "./nearby-list";
 import { ConfirmSeatDialog } from "./confirm-seat-dialog";
 import { ActiveRideTracker } from "./active-ride-tracker";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/utils";
+import type { VerifiedInfo } from "./confirm-seat-dialog";
 
 export function RiderDashboard() {
   const [confirmOpen, setConfirmOpen] = useState(false);
   const [qrToken, setQrToken] = useState<string | null>(null);
-  const [verifiedInfo, setVerifiedInfo] = useState<any>(null);
+  const [verifiedInfo, setVerifiedInfo] = useState<VerifiedInfo | null>(null);
   const [restoring, setRestoring] = useState(true);
 
   const [activeRide, setActiveRide] = useState<{
@@ -28,8 +30,8 @@ export function RiderDashboard() {
       setVerifiedInfo(data);
       setQrToken(token);
       setConfirmOpen(true);
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || "Invalid or expired QR code.");
+    } catch (err: unknown) {
+      toast.error(getErrorMessage(err, "Invalid or expired QR code."));
     }
   }, []);
 

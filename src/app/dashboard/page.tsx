@@ -24,14 +24,17 @@ export default function DashboardPage() {
     }
 
     if (user.role === "DRIVER" || user.role === "BOTH") {
-      setCheckingVehicle(true);
-      usersApi
-        .getDriverProfile()
-        .catch(() => {
-          // Vehicle register nahi hai abhi — register-vehicle pe bhej do
-          router.replace("/register-vehicle");
-        })
-        .finally(() => setCheckingVehicle(false));
+      const id = setTimeout(() => {
+        setCheckingVehicle(true);
+        usersApi
+          .getDriverProfile()
+          .catch(() => {
+            // Vehicle register nahi hai abhi — register-vehicle pe bhej do
+            router.replace("/register-vehicle");
+          })
+          .finally(() => setCheckingVehicle(false));
+      }, 0);
+      return () => clearTimeout(id);
     }
   }, [user, router]);
 

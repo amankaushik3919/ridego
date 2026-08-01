@@ -12,6 +12,7 @@ import {
   DialogFooter,
 } from "@/components/ui/dialog";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/utils";
 
 interface VerifiedInfo {
   sessionId: string;
@@ -20,6 +21,8 @@ interface VerifiedInfo {
   totalSeats: number;
   availableSeats: number;
 }
+
+export type { VerifiedInfo };
 
 interface Props {
   open: boolean;
@@ -55,8 +58,8 @@ export function ConfirmSeatDialog({
       } else {
         toast.error("This ride is no longer available.");
       }
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || "Failed to lock seat.");
+    } catch (err: unknown) {
+      toast.error(getErrorMessage(err, "Failed to lock seat."));
     } finally {
       setLoading(false);
       onClose();

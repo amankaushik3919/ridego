@@ -5,7 +5,6 @@ import { usersApi } from "@/lib/api/users";
 import { DriverDestination } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Card,
   CardContent,
@@ -14,6 +13,7 @@ import {
   CardDescription,
 } from "@/components/ui/card";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/utils";
 
 export function ManageDestinations() {
   const [destinations, setDestinations] = useState<DriverDestination[]>([]);
@@ -27,7 +27,16 @@ export function ManageDestinations() {
   };
 
   useEffect(() => {
-    fetchDestinations();
+    let active = true;
+    usersApi
+      .getDestinations()
+      .then(({ data }) => {
+        if (active) setDestinations(data);
+      })
+      .catch(() => {});
+    return () => {
+      active = false;
+    };
   }, []);
 
   const handleAdd = async () => {
@@ -42,8 +51,8 @@ export function ManageDestinations() {
       setLabel("");
       setDistanceKm("");
       fetchDestinations();
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || "Failed to add destination.");
+    } catch (err: unknown) {
+      toast.error(getErrorMessage(err, "Failed to add destination."));
     } finally {
       setLoading(false);
     }
@@ -54,10 +63,8 @@ export function ManageDestinations() {
       await usersApi.deleteDestination(id);
       toast.success("Destination removed.");
       fetchDestinations();
-    } catch (err: any) {
-      toast.error(
-        err.response?.data?.message || "Failed to remove destination.",
-      );
+    } catch (err: unknown) {
+      toast.error(getErrorMessage(err, "Failed to remove destination."));
     }
   };
 

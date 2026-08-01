@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MapPin, Navigation } from "lucide-react";
 import { toast } from "sonner";
+import { getErrorMessage } from "@/lib/utils";
 
 interface Props {
   sessionId: string;
@@ -63,8 +64,8 @@ export function ActiveRideTracker({
       } else {
         toast.error("Could not end ride — QR does not match your active ride.");
       }
-    } catch (err: any) {
-      toast.error(err.response?.data?.message || "Failed to end ride.");
+    } catch (err: unknown) {
+      toast.error(getErrorMessage(err, "Failed to end ride."));
     }
   };
 
@@ -114,7 +115,7 @@ export function ActiveRideTracker({
     <>
       <Card>
         <CardHeader>
-          <CardTitle>You're on a ride!</CardTitle>
+          <CardTitle>You&apos;re on a ride!</CardTitle>
           <CardDescription>Heading to {destination}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
